@@ -1,0 +1,16 @@
+{
+  "version": 2,
+  "dgSpecHash": "0wvoRc9hwFo2El9brsc+eLgTK9uN0tkQdsbHX3KA5ypy3xNECj5ZvaD3DvX2f54mZxrmWT68C6I4j7mbFPsWEg==",
+  "success": true,
+  "projectFilePath": "/Users/fenix/Documents/webdev/courses/mySpot/MySpot/src/MySpot.Api/MySpot.Api.csproj",
+  "expectedPackageFiles": [
+    "/Users/fenix/.nuget/packages/microsoft.aspnetcore.openapi/8.0.1/microsoft.aspnetcore.openapi.8.0.1.nupkg.sha512",
+    "/Users/fenix/.nuget/packages/microsoft.extensions.apidescription.server/6.0.5/microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",
+    "/Users/fenix/.nuget/packages/microsoft.openapi/1.4.3/microsoft.openapi.1.4.3.nupkg.sha512",
+    "/Users/fenix/.nuget/packages/swashbuckle.aspnetcore/6.4.0/swashbuckle.aspnetcore.6.4.0.nupkg.sha512",
+    "/Users/fenix/.nuget/packages/swashbuckle.aspnetcore.swagger/6.4.0/swashbuckle.aspnetcore.swagger.6.4.0.nupkg.sha512",
+    "/Users/fenix/.nuget/packages/swashbuckle.aspnetcore.swaggergen/6.4.0/swashbuckle.aspnetcore.swaggergen.6.4.0.nupkg.sha512",
+    "/Users/fenix/.nuget/packages/swashbuckle.aspnetcore.swaggerui/6.4.0/swashbuckle.aspnetcore.swaggerui.6.4.0.nupkg.sha512"
+  ],
+  "logs": []
+}
