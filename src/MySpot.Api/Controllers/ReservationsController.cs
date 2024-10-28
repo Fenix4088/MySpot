@@ -52,4 +52,25 @@ public class ReservationsController: ControllerBase
 
         return CreatedAtAction(nameof(Get), new {id = reservation.Id}, null);
     }
+
+    [HttpPut("{id:int}")]
+    public ActionResult Put(int id, [FromBody] Reservation newReservation)
+    {
+        var reservation = ReservationsList.SingleOrDefault(r => r.Id == id);
+
+        if (reservation is null)
+        {
+            return NotFound();
+        }
+        
+        if (ParkingSpotNames.All(spot => spot != newReservation.ParkingSpotName))
+        {
+            return BadRequest();
+        }
+        
+        var reservationIndex = ReservationsList.IndexOf(reservation);
+        ReservationsList[reservationIndex] = newReservation;
+        ReservationsList[reservationIndex].Id = id;
+        return NoContent();
+    }
 }
