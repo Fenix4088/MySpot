@@ -31,3 +31,4 @@
 /Users/fenix/Documents/webdev/courses/mySpot/MySpot/src/MySpot.Api/obj/Debug/net8.0/MySpot.Api.pdb
 /Users/fenix/Documents/webdev/courses/mySpot/MySpot/src/MySpot.Api/obj/Debug/net8.0/MySpot.Api.genruntimeconfig.cache
 /Users/fenix/Documents/webdev/courses/mySpot/MySpot/src/MySpot.Api/obj/Debug/net8.0/ref/MySpot.Api.dll
+/Users/fenix/Documents/webdev/courses/mySpot/MySpot/src/MySpot.Api/obj/Debug/net8.0/MySpot.Api.sourcelink.json

@@ -18,23 +18,19 @@ public class ReservationsController: ControllerBase
     private static readonly List<Reservation> ReservationsList = [];
 
     [HttpGet]
-    public IEnumerable<Reservation> Get()
-    {
-        return ReservationsList;
-    }
+    public ActionResult<IEnumerable<Reservation>> Get() => Ok(ReservationsList);
 
     [HttpGet("{id:int}")]
-    public Reservation? GetById(int id)
+    public ActionResult<Reservation?> GetById(int id)
     {
         var reservation =  ReservationsList.SingleOrDefault(r => r.Id == id);
 
         if (reservation is null)
         {
-            HttpContext.Response.StatusCode = StatusCodes.Status404NotFound;
-            return default;
+            return NotFound();
         }
 
-        return reservation;
+        return Ok(reservation);
     }
 
     [HttpPost]
@@ -54,6 +50,6 @@ public class ReservationsController: ControllerBase
         Id++;
         ReservationsList.Add(reservation);
 
-        return Created($"http://localhost:5000/reservation/{reservation.Id}", null);
+        return CreatedAtAction(nameof(Get), new {id = reservation.Id}, null);
     }
 }
