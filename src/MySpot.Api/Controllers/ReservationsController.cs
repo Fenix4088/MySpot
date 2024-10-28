@@ -73,4 +73,16 @@ public class ReservationsController: ControllerBase
         ReservationsList[reservationIndex].Id = id;
         return NoContent();
     }
+
+    [HttpDelete("{id:int}")]
+    public ActionResult Delete(int id)
+    {
+        var reservation = ReservationsList.SingleOrDefault(r => r.Id == id);
+        if (reservation is null)
+        {
+            return NotFound();
+        }
+        ReservationsList.Remove(reservation);
+        return NoContent();
+    }
 }

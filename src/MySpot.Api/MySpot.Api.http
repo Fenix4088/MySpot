@@ -27,3 +27,6 @@ Content-Type: application/json
   "licensePlate": "XYZ123",
   "date": "2025-08-02"
 }
+
+###
+DELETE {{MySpot.Api_HostAddress}}/Reservations/2
