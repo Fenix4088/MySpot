@@ -101,12 +101,14 @@ public class ReservationsService
         if (weeklyParkingSpot is null) return false;
         
         var existingReservation =
-            weeklyParkingSpot.Reservations.FirstOrDefault(reservation =>
+            weeklyParkingSpot.Reservations.SingleOrDefault(reservation =>
                 reservation.Id == deleteReservationCommand.ReservationId);
         
         if (existingReservation is null) return false;
         
-        return weeklyParkingSpot.Reservations.ToList().Remove(existingReservation);
+        weeklyParkingSpot.RemoveReservation(deleteReservationCommand.ReservationId);
+        
+        return true;
     }
 
 }

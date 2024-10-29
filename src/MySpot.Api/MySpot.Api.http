@@ -8,7 +8,7 @@ POST {{MySpot.Api_HostAddress}}/Reservations
 Content-Type: application/json
 
 {
-  "parkingSpotId": "00000000-0000-0000-0000-000000000001",
+  "parkingSpotId": "00000000-0000-0000-0000-000000000002",
   "employeeName": "Joe Dou",
   "licensePlate": "XYZ123",
   "date": "2024-10-30"
@@ -26,4 +26,4 @@ Content-Type: application/json
 }
 
 ###
-DELETE {{MySpot.Api_HostAddress}}/Reservations/329d9170-4702-475a-a1d5-2a027d9d5dbf
+DELETE {{MySpot.Api_HostAddress}}/Reservations/fa5af84a-a496-4d82-8d08-17337ae1dc2a
