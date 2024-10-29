@@ -76,18 +76,18 @@ public class ReservationsService
 
     public bool Update(ChangeReservationLicensePlateCommand changeReservationLicensePlateCommand)
     {
-        var existingReservation = WeeklyParkingSpots.SelectMany(parkingSpot => parkingSpot.Reservations).FirstOrDefault(reservation => reservation.Id == changeReservationLicensePlateCommand.ReservationId);
+        
+        var weeklyParkingSpot = GetWeeklyParkingSpotByReservation(changeReservationLicensePlateCommand.ReservationId);
+        
+        if (weeklyParkingSpot is null) return false;
+        
+        var existingReservation =
+            weeklyParkingSpot.Reservations.SingleOrDefault(reservation =>
+                reservation.Id == changeReservationLicensePlateCommand.ReservationId);
 
-        if (existingReservation is null)
-        {
-            return false;
-        }
+        if (existingReservation is null) return false;
 
         if (existingReservation.Date <= DateTime.UtcNow) return false;
-        
-        if (string.IsNullOrWhiteSpace(existingReservation.LicensePlate)) return false;
-        
-        // if (WeeklyParkingSpots.All(spot => spot.Name != changeReservationLicensePlateCommand.ParkingSpotName)) return false;
         
         existingReservation.ChangeLicensePlate(changeReservationLicensePlateCommand.LicensePlate);
         
@@ -96,7 +96,7 @@ public class ReservationsService
 
     public bool Delete(DeleteReservationCommand deleteReservationCommand)
     {
-        var weeklyParkingSpot = WeeklyParkingSpots.FirstOrDefault(parkingSpot => parkingSpot.Reservations.Any(reservation => reservation.Id == deleteReservationCommand.ReservationId));
+        var weeklyParkingSpot = GetWeeklyParkingSpotByReservation(deleteReservationCommand.ReservationId);
         
         if (weeklyParkingSpot is null) return false;
         
@@ -110,5 +110,7 @@ public class ReservationsService
         
         return true;
     }
+
+    private WeeklyParkingSpot? GetWeeklyParkingSpotByReservation(Guid reservationId) => WeeklyParkingSpots.SingleOrDefault(parkingSpot => parkingSpot.Reservations.Any(reservation => reservation.Id == reservationId));
 
 }

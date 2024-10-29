@@ -9,16 +9,16 @@ Content-Type: application/json
 
 {
   "parkingSpotId": "00000000-0000-0000-0000-000000000002",
-  "employeeName": "Joe Dou",
-  "licensePlate": "XYZ123",
-  "date": "2024-10-30"
+  "employeeName": "Billy Milligan",
+  "licensePlate": "ABC2233",
+  "date": "2024-10-31"
 }
 
 ###
 GET {{MySpot.Api_HostAddress}}/Reservations/1
 
 ###
-PUT {{MySpot.Api_HostAddress}}/Reservations/6eef8014-80bb-4aa3-8e26-862ef377963c
+PUT {{MySpot.Api_HostAddress}}/Reservations/fbb3aeba-bbbd-497e-a0ed-6c5eac773090
 Content-Type: application/json
 
 {
@@ -26,4 +26,4 @@ Content-Type: application/json
 }
 
 ###
-DELETE {{MySpot.Api_HostAddress}}/Reservations/fa5af84a-a496-4d82-8d08-17337ae1dc2a
+DELETE {{MySpot.Api_HostAddress}}/Reservations/fbb3aeba-bbbd-497e-a0ed-6c5eac773090
