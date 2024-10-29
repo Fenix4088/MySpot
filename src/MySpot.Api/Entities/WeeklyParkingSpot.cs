@@ -12,11 +12,10 @@ public class WeeklyParkingSpot(Guid id, DateTime from, DateTime to, string name)
     public string Name { get; } = name;
     public IEnumerable<Reservation> Reservations => _reservations;
 
-    public void AddReservation(Reservation reservation)
+    public void AddReservation(Reservation reservation, DateTime now)
     {
 
         var reservationDate = reservation.Date.Date;
-        var now = DateTime.UtcNow.Date;
         var isInvalidDate = reservationDate < From || reservationDate > To || reservationDate < now.Date;
         
         if (isInvalidDate) throw new InvalidReservationDateException(reservation.Date.Date);
