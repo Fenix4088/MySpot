@@ -1,9 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# 
+#
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{BB146E76-468D-4826-932E-99F7ED5FD711}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MySpot.Api", "src\MySpot.Api\MySpot.Api.csproj", "{76F7003C-5FD2-4FFF-99A0-52539CF90063}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{A26A5CDC-88D1-410D-9316-6D850E219909}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MySpot.Tests.Unit", "tests\MySpot.Tests.Unit\MySpot.Tests.Unit.csproj", "{820C9B2A-53CE-489C-BCBD-93D517E22E88}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,8 +19,13 @@ Global
 		{76F7003C-5FD2-4FFF-99A0-52539CF90063}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{76F7003C-5FD2-4FFF-99A0-52539CF90063}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{76F7003C-5FD2-4FFF-99A0-52539CF90063}.Release|Any CPU.Build.0 = Release|Any CPU
+		{820C9B2A-53CE-489C-BCBD-93D517E22E88}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{820C9B2A-53CE-489C-BCBD-93D517E22E88}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{820C9B2A-53CE-489C-BCBD-93D517E22E88}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{820C9B2A-53CE-489C-BCBD-93D517E22E88}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{76F7003C-5FD2-4FFF-99A0-52539CF90063} = {BB146E76-468D-4826-932E-99F7ED5FD711}
+		{820C9B2A-53CE-489C-BCBD-93D517E22E88} = {A26A5CDC-88D1-410D-9316-6D850E219909}
 	EndGlobalSection
 EndGlobal
