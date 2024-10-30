@@ -26,4 +26,4 @@ Content-Type: application/json
 }
 
 ###
-DELETE {{MySpot.Api_HostAddress}}/Reservations/fbb3aeba-bbbd-497e-a0ed-6c5eac773090
+DELETE {{MySpot.Api_HostAddress}}/Reservations/9321b566-7dfd-46a6-9a94-fdaec822a74b

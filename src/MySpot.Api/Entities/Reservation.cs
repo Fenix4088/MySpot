@@ -6,17 +6,16 @@ namespace MySpot.Api.Entities;
 
 public class Reservation
 {
-    
-    public Guid Id { get; private set;  }
-    public Guid ParkingSpotId { get; }
-    public string EmployeeName { get; private set; }
+    public ReservationId Id { get; private set;  }
+    public ParkingSpotId ParkingSpotId { get; }
+    public EmployeeName EmployeeName { get; private set; }
     public LicensePlate LicensePlate { get; private set; }
-    public DateTime Date { get; private set; }
-    public Reservation(Guid id,
-        Guid parkingSpotId,
-        string employeeName,
+    public Date Date { get; private set; }
+    public Reservation(ReservationId id,
+        ParkingSpotId parkingSpotId,
+        EmployeeName employeeName,
         LicensePlate licensePlate,
-        DateTime date)
+        Date date)
     {
         Id = id;
         ParkingSpotId = parkingSpotId;
