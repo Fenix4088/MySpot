@@ -3,15 +3,15 @@ using MySpot.Api.Commands;
 using MySpot.Api.DTO;
 using MySpot.Api.Entities;
 using MySpot.Api.Services;
+using MySpot.Api.ValueObjects;
 
 namespace MySpot.Api.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class ReservationsController: ControllerBase
+public class ReservationsController(IReservationsService reservationService): ControllerBase
 {
-
-    private readonly ReservationsService _reservationService = new ();
+    private readonly IReservationsService _reservationService = reservationService;
 
     [HttpGet]
     public ActionResult<IEnumerable<ReservationDto>> Get() => Ok(_reservationService.GetAllWeekly());

@@ -1,6 +1,7 @@
 using MySpot.Api.Entities;
 using MySpot.Api.Exceptions;
 using MySpot.Api.ValueObjects;
+using Shouldly;
 using Should;
 using Xunit;
 
