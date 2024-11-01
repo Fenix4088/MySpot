@@ -1,0 +1,16 @@
+/Users/fenix/Documents/webdev/courses/mySpot/MySpot/src/MySpot.Application/bin/Debug/net8.0/MySpot.Application.deps.json
+/Users/fenix/Documents/webdev/courses/mySpot/MySpot/src/MySpot.Application/bin/Debug/net8.0/MySpot.Application.dll
+/Users/fenix/Documents/webdev/courses/mySpot/MySpot/src/MySpot.Application/bin/Debug/net8.0/MySpot.Application.pdb
+/Users/fenix/Documents/webdev/courses/mySpot/MySpot/src/MySpot.Application/bin/Debug/net8.0/MySpot.Core.dll
+/Users/fenix/Documents/webdev/courses/mySpot/MySpot/src/MySpot.Application/bin/Debug/net8.0/MySpot.Core.pdb
+/Users/fenix/Documents/webdev/courses/mySpot/MySpot/src/MySpot.Application/obj/Debug/net8.0/MySpot.Application.csproj.AssemblyReference.cache
+/Users/fenix/Documents/webdev/courses/mySpot/MySpot/src/MySpot.Application/obj/Debug/net8.0/MySpot.Application.GeneratedMSBuildEditorConfig.editorconfig
+/Users/fenix/Documents/webdev/courses/mySpot/MySpot/src/MySpot.Application/obj/Debug/net8.0/MySpot.Application.AssemblyInfoInputs.cache
+/Users/fenix/Documents/webdev/courses/mySpot/MySpot/src/MySpot.Application/obj/Debug/net8.0/MySpot.Application.AssemblyInfo.cs
+/Users/fenix/Documents/webdev/courses/mySpot/MySpot/src/MySpot.Application/obj/Debug/net8.0/MySpot.Application.csproj.CoreCompileInputs.cache
+/Users/fenix/Documents/webdev/courses/mySpot/MySpot/src/MySpot.Application/obj/Debug/net8.0/MySpot.Application.sourcelink.json
+/Users/fenix/Documents/webdev/courses/mySpot/MySpot/src/MySpot.Application/obj/Debug/net8.0/MySpot.Application.csproj.CopyComplete
+/Users/fenix/Documents/webdev/courses/mySpot/MySpot/src/MySpot.Application/obj/Debug/net8.0/MySpot.Application.dll
+/Users/fenix/Documents/webdev/courses/mySpot/MySpot/src/MySpot.Application/obj/Debug/net8.0/refint/MySpot.Application.dll
+/Users/fenix/Documents/webdev/courses/mySpot/MySpot/src/MySpot.Application/obj/Debug/net8.0/MySpot.Application.pdb
+/Users/fenix/Documents/webdev/courses/mySpot/MySpot/src/MySpot.Application/obj/Debug/net8.0/ref/MySpot.Application.dll

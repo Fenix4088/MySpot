@@ -1,0 +1,124 @@
+{
+  "format": 1,
+  "restore": {
+    "/Users/fenix/Documents/webdev/courses/mySpot/MySpot/src/MySpot.Application/MySpot.Application.csproj": {}
+  },
+  "projects": {
+    "/Users/fenix/Documents/webdev/courses/mySpot/MySpot/src/MySpot.Application/MySpot.Application.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/fenix/Documents/webdev/courses/mySpot/MySpot/src/MySpot.Application/MySpot.Application.csproj",
+        "projectName": "MySpot.Application",
+        "projectPath": "/Users/fenix/Documents/webdev/courses/mySpot/MySpot/src/MySpot.Application/MySpot.Application.csproj",
+        "packagesPath": "/Users/fenix/.nuget/packages/",
+        "outputPath": "/Users/fenix/Documents/webdev/courses/mySpot/MySpot/src/MySpot.Application/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/fenix/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "/Users/fenix/Documents/webdev/courses/mySpot/MySpot/src/MySpot.Core/MySpot.Core.csproj": {
+                "projectPath": "/Users/fenix/Documents/webdev/courses/mySpot/MySpot/src/MySpot.Core/MySpot.Core.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.101/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/fenix/Documents/webdev/courses/mySpot/MySpot/src/MySpot.Core/MySpot.Core.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/fenix/Documents/webdev/courses/mySpot/MySpot/src/MySpot.Core/MySpot.Core.csproj",
+        "projectName": "MySpot.Core",
+        "projectPath": "/Users/fenix/Documents/webdev/courses/mySpot/MySpot/src/MySpot.Core/MySpot.Core.csproj",
+        "packagesPath": "/Users/fenix/.nuget/packages/",
+        "outputPath": "/Users/fenix/Documents/webdev/courses/mySpot/MySpot/src/MySpot.Core/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/fenix/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "Microsoft.Extensions.DependencyInjection.Abstractions": {
+              "target": "Package",
+              "version": "[8.0.2, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.101/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

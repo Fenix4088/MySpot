@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "9bZEXqa2cv5/1F4wbQh2OSOpeafQWbqhJ/CTpPm8+6/MMjxH7QPFf5YL70kANqtNIuYbnIpZbDl8VSdwlMKSmw==",
+  "success": true,
+  "projectFilePath": "/Users/fenix/Documents/webdev/courses/mySpot/MySpot/src/MySpot.Core/MySpot.Core.csproj",
+  "expectedPackageFiles": [
+    "/Users/fenix/.nuget/packages/microsoft.extensions.dependencyinjection.abstractions/8.0.2/microsoft.extensions.dependencyinjection.abstractions.8.0.2.nupkg.sha512"
+  ],
+  "logs": []
+}

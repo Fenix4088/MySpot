@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "ggp3nV/xFoSsOkD7VDmb68uhx4Qkq5jYDHqOTXfrR7l65izA8DjmCgpYKUZm5A9HQARxAzyAVnE8xtOSXoBj6g==",
+  "dgSpecHash": "6t13+lanV6x1zp7K18bc2j+2r34O7mueCSiAhAnDm3FdcNBGgyeqIlLhW0EqwuhjcDWnQikYaK+m+Fn20FdeuA==",
   "success": true,
   "projectFilePath": "/Users/fenix/Documents/webdev/courses/mySpot/MySpot/tests/MySpot.Tests.Unit/MySpot.Tests.Unit.csproj",
   "expectedPackageFiles": [
@@ -10,6 +10,8 @@
     "/Users/fenix/.nuget/packages/microsoft.aspnetcore.openapi/8.0.1/microsoft.aspnetcore.openapi.8.0.1.nupkg.sha512",
     "/Users/fenix/.nuget/packages/microsoft.codecoverage/17.6.0/microsoft.codecoverage.17.6.0.nupkg.sha512",
     "/Users/fenix/.nuget/packages/microsoft.extensions.apidescription.server/6.0.5/microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",
+    "/Users/fenix/.nuget/packages/microsoft.extensions.dependencyinjection/8.0.1/microsoft.extensions.dependencyinjection.8.0.1.nupkg.sha512",
+    "/Users/fenix/.nuget/packages/microsoft.extensions.dependencyinjection.abstractions/8.0.2/microsoft.extensions.dependencyinjection.abstractions.8.0.2.nupkg.sha512",
     "/Users/fenix/.nuget/packages/microsoft.net.test.sdk/17.6.0/microsoft.net.test.sdk.17.6.0.nupkg.sha512",
     "/Users/fenix/.nuget/packages/microsoft.netcore.platforms/1.1.0/microsoft.netcore.platforms.1.1.0.nupkg.sha512",
     "/Users/fenix/.nuget/packages/microsoft.netcore.targets/1.1.0/microsoft.netcore.targets.1.1.0.nupkg.sha512",
