@@ -11,7 +11,10 @@
     </ItemGroup>
 
     <ItemGroup>
+<!-- Microsoft.EntityFrameworkCore is disabled because  Npgsql.EntityFrameworkCore.PostgreSQL already have reference to it -->
+<!--      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.10" />-->
       <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.1" />
+      <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.10" />
     </ItemGroup>
 
     <ItemGroup>

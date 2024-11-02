@@ -39,6 +39,7 @@ public class ReservationsService(IClock clock, IWeeklyParkingSpotRepository week
             );
 
         weeklyParkingSpot.AddReservation(reservation, new Date(_clock.Current()));
+        _weeklyParkingSpotRepository.Update(weeklyParkingSpot);
 
         return reservation.Id;
     }
@@ -59,7 +60,8 @@ public class ReservationsService(IClock clock, IWeeklyParkingSpotRepository week
         if (existingReservation.Date <= new Date(_clock.Current())) return false;
         
         existingReservation.ChangeLicensePlate(changeReservationLicensePlateCommand.LicensePlate);
-        
+        _weeklyParkingSpotRepository.Update(weeklyParkingSpot);
+
         return true;
     }
 
@@ -76,7 +78,8 @@ public class ReservationsService(IClock clock, IWeeklyParkingSpotRepository week
         if (existingReservation is null) return false;
         
         weeklyParkingSpot.RemoveReservation(deleteReservationCommand.ReservationId);
-        
+        _weeklyParkingSpotRepository.Delete(weeklyParkingSpot);
+
         return true;
     }
 
