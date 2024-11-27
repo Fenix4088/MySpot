@@ -4,5 +4,5 @@ namespace MySpot.Tests.Unit.Shared;
 
 public class TestClock: IClock
 {
-    public DateTime Current() => new DateTime(2024, 10, 31);
+    public DateTime Current() => new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
 }

@@ -12,12 +12,12 @@ public class ReservationsController(IReservationsService reservationService): Co
     private readonly IReservationsService _reservationService = reservationService;
 
     [HttpGet]
-    public ActionResult<IEnumerable<ReservationDto>> Get() => Ok(_reservationService.GetAllWeekly());
+    public async Task<ActionResult<IEnumerable<ReservationDto>>> Get() => Ok(await _reservationService.GetAllWeeklyAsync());
 
     [HttpGet("{id:guid}")]
-    public ActionResult<ReservationDto?> GetById(Guid id)
+    public async Task<ActionResult<ReservationDto?>> GetById(Guid id)
     {
-        var reservation = _reservationService.Get(id);
+        var reservation = await _reservationService.GetAsync(id);
 
         if (reservation is null)
         {
@@ -28,9 +28,9 @@ public class ReservationsController(IReservationsService reservationService): Co
     }
 
     [HttpPost]
-    public ActionResult Post(CreateReservationCommand createReservationCommand)
+    public async Task<ActionResult> Post(CreateReservationCommand createReservationCommand)
     {
-        var id = _reservationService.Create(createReservationCommand with { ReservationId = Guid.NewGuid() });
+        var id = await _reservationService.CreateAsync(createReservationCommand with { ReservationId = Guid.NewGuid() });
 
         if (id is null) return BadRequest();
 
@@ -38,10 +38,10 @@ public class ReservationsController(IReservationsService reservationService): Co
     }
 
     [HttpPut("{id:guid}")]
-    public ActionResult Put(Guid id, [FromBody] ChangeReservationLicensePlateCommand changeReservationLicensePlateCommand)
+    public async Task<ActionResult> Put(Guid id, [FromBody] ChangeReservationLicensePlateCommand changeReservationLicensePlateCommand)
     {
 
-        if (_reservationService.Update(changeReservationLicensePlateCommand with { ReservationId = id}))
+        if (await _reservationService.UpdateAsync(changeReservationLicensePlateCommand with { ReservationId = id}))
         {
             return NoContent();
         }
@@ -50,9 +50,9 @@ public class ReservationsController(IReservationsService reservationService): Co
     }
 
     [HttpDelete("{id:guid}")]
-    public ActionResult Delete(Guid id)
+    public async Task<ActionResult> Delete(Guid id)
     {
-        if (_reservationService.Delete(new DeleteReservationCommand(id)))
+        if (await _reservationService.DeleteAsync(new DeleteReservationCommand(id)))
         {
             return NoContent();
         }

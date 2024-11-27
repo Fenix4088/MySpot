@@ -11,11 +11,11 @@ Content-Type: application/json
   "parkingSpotId": "00000000-0000-0000-0000-000000000002",
   "employeeName": "Billy Milligan",
   "licensePlate": "ABC2233",
-  "date": "2024-11-03"
+  "date": "2024-11-28"
 }
 
 ###
-GET {{MySpot.Api_HostAddress}}/Reservations/1
+GET {{MySpot.Api_HostAddress}}/Reservations/1f73729b-9a2d-400f-a1db-3bf0c03f2aa8
 
 ###
 PUT {{MySpot.Api_HostAddress}}/Reservations/fbb3aeba-bbbd-497e-a0ed-6c5eac773090

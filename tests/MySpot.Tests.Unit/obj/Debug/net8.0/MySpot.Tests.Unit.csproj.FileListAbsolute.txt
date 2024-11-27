@@ -176,3 +176,6 @@
 /Users/fenix/Documents/webdev/courses/mySpot/MySpot/tests/MySpot.Tests.Unit/bin/Debug/net8.0/Microsoft.Extensions.Options.dll
 /Users/fenix/Documents/webdev/courses/mySpot/MySpot/tests/MySpot.Tests.Unit/bin/Debug/net8.0/Npgsql.dll
 /Users/fenix/Documents/webdev/courses/mySpot/MySpot/tests/MySpot.Tests.Unit/bin/Debug/net8.0/Npgsql.EntityFrameworkCore.PostgreSQL.dll
+/Users/fenix/Documents/webdev/courses/mySpot/MySpot/tests/MySpot.Tests.Unit/bin/Debug/net8.0/Microsoft.Extensions.Configuration.Binder.dll
+/Users/fenix/Documents/webdev/courses/mySpot/MySpot/tests/MySpot.Tests.Unit/bin/Debug/net8.0/Microsoft.Extensions.Diagnostics.Abstractions.dll
+/Users/fenix/Documents/webdev/courses/mySpot/MySpot/tests/MySpot.Tests.Unit/bin/Debug/net8.0/Microsoft.Extensions.Hosting.Abstractions.dll
