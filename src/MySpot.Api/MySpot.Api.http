@@ -8,9 +8,9 @@ POST {{MySpot.Api_HostAddress}}/Reservations
 Content-Type: application/json
 
 {
-  "parkingSpotId": "00000000-0000-0000-0000-000000000002",
+  "parkingSpotId": "00000000-0000-0000-0000-000000000001",
   "employeeName": "Billy Milligan",
-  "licensePlate": "ABC2233",
+  "licensePlate": "ABC2234",
   "date": "2024-11-28"
 }
 
