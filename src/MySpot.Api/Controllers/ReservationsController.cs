@@ -27,21 +27,28 @@ public class ReservationsController(IReservationsService reservationService): Co
         return Ok(reservation);
     }
 
-    [HttpPost]
-    public async Task<ActionResult> Post(CreateReservationCommand createReservationCommand)
+    [HttpPost("vehicle")]
+    public async Task<ActionResult> Post(ReserveParkingSpotForVehicleCommand reserveParkingSpotForVehicleCommand)
     {
-        var id = await _reservationService.CreateAsync(createReservationCommand with { ReservationId = Guid.NewGuid() });
+        var id = await _reservationService.ReserveForVehicleAsync(reserveParkingSpotForVehicleCommand with { ReservationId = Guid.NewGuid() });
 
         if (id is null) return BadRequest();
 
         return CreatedAtAction(nameof(Get), new { id }, null);
+    }
+    
+    [HttpPost("cleaning")]
+    public async Task<ActionResult> Post(ReserveParkingSpotForCleaningCommand reserveParkingSpotForCleaningCommand)
+    {
+        await _reservationService.ReserveForCleaningAsync(reserveParkingSpotForCleaningCommand);
+        return Ok();
     }
 
     [HttpPut("{id:guid}")]
     public async Task<ActionResult> Put(Guid id, [FromBody] ChangeReservationLicensePlateCommand changeReservationLicensePlateCommand)
     {
 
-        if (await _reservationService.UpdateAsync(changeReservationLicensePlateCommand with { ReservationId = id}))
+        if (await _reservationService.ChangeReservationLicensePlateAsync(changeReservationLicensePlateCommand with { ReservationId = id}))
         {
             return NoContent();
         }

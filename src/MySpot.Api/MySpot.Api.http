@@ -4,14 +4,22 @@
 GET {{MySpot.Api_HostAddress}}/Reservations
 
 ###
-POST {{MySpot.Api_HostAddress}}/Reservations
+POST {{MySpot.Api_HostAddress}}/reservations/vehicle
 Content-Type: application/json
 
 {
   "parkingSpotId": "00000000-0000-0000-0000-000000000001",
   "employeeName": "Billy Milligan",
   "licensePlate": "ABC2234",
-  "date": "2024-12-02"
+  "date": "2024-12-01"
+}
+
+###
+POST {{MySpot.Api_HostAddress}}/Reservations/cleaning
+Content-Type: application/json
+
+{
+  "date": "2024-12-01"
 }
 
 ###

@@ -13,6 +13,7 @@ internal sealed class ManagerReservationPolicy(IClock clock): IReservationPolicy
     public bool CanReserve(IEnumerable<WeeklyParkingSpot> weeklyParkingSpots, EmployeeName employeeName)
     {
         var totalEmployeeReservations = weeklyParkingSpots.SelectMany(parkingSpot => parkingSpot.Reservations)
+            .OfType<VehicleReservation>()
             .Count(x => x.EmployeeName == employeeName);
 
         return totalEmployeeReservations <= 4;

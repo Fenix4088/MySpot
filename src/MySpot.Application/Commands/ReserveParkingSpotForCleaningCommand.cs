@@ -1,3 +1,3 @@
 namespace MySpot.Application.Commands;
 
-public record ReserveParkingSpotForCleaningCommand();
+public record ReserveParkingSpotForCleaningCommand(DateTime Date);

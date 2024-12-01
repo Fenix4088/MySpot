@@ -15,7 +15,7 @@ internal sealed class ParkingReservationService(IEnumerable<IReservationPolicy> 
     //Use Strategy pattern here
     //https://refactoring.guru/design-patterns/strategy/csharp/example
     public void ReserveSpotForVehicle(IEnumerable<WeeklyParkingSpot> allParkingSpots, JobTitle jobTitle, WeeklyParkingSpot parkingSpotToReserve,
-        Reservation reservation)
+        VehicleReservation reservation)
     {
         var parkingSpotId = parkingSpotToReserve.Id;
         var policy = policies.SingleOrDefault(x => x.CanBeApplied(jobTitle));
@@ -31,5 +31,17 @@ internal sealed class ParkingReservationService(IEnumerable<IReservationPolicy> 
         }
         
         parkingSpotToReserve.AddReservation(reservation, new Date(_clock.Current()));
+    }
+
+    public void ReserveParkingForCleaning(IEnumerable<WeeklyParkingSpot> allParkingSpots, Date date)
+    {
+        foreach (var parkingSpot in allParkingSpots)
+        {
+            var reservationsForSameDate = parkingSpot.Reservations.Where(x => x.Date == date);
+            parkingSpot.RemoveReservations(reservationsForSameDate);
+
+            var cleaningReservation = new CleaningReservation(ReservationId.Create(), parkingSpot.Id, date);
+            parkingSpot.AddReservation(cleaningReservation, new Date(_clock.Current()));
+        }
     }
 }

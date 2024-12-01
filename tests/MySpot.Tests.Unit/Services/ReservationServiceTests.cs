@@ -31,7 +31,7 @@ public class ReservationServiceTests
 
         var parkingSpots = await _weeklyParkingSpotRepository.GetAllAsync();
         var parkingSpot = parkingSpots.First();
-        var command = new CreateReservationCommand(
+        var command = new ReserveParkingSpotForVehicleCommand(
             parkingSpot.Id,
             Guid.NewGuid(),
             "Joe Dou",
@@ -39,7 +39,7 @@ public class ReservationServiceTests
             DateTime.UtcNow.AddMinutes(5)
             );
 
-        var reservationId = await _reservationsService.CreateAsync(command);
+        var reservationId = await _reservationsService.ReserveForVehicleAsync(command);
 
         reservationId.ShouldNotBeNull();
         reservationId.Value.ShouldBe(command.ReservationId);

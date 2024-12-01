@@ -2,7 +2,7 @@ namespace MySpot.Core.ValueObjects;
 
 public sealed record Date(DateTimeOffset value)
 {
-    public DateTimeOffset Value { get; } = value;
+    public DateTimeOffset Value { get; } = value.Date;
 
     public Date AddDays(int days) => new(Value.AddDays(days));
 

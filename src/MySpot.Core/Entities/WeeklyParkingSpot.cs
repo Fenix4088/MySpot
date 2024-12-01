@@ -29,4 +29,7 @@ public class WeeklyParkingSpot(ParkingSpotId id, Week week, ParkingSpotName name
     {
         _reservations.RemoveWhere(reservation => reservation.Id == reservationId);
     }
+
+    public void RemoveReservations(IEnumerable<Reservation> reservations) =>
+        _reservations.RemoveWhere(x => reservations.Any(r => r.Id == x.Id));
 }
