@@ -12,7 +12,7 @@ public class WeeklyParkingSpot(ParkingSpotId id, Week week, ParkingSpotName name
     public ParkingSpotName Name { get; private set; } = name;
     public IEnumerable<Reservation> Reservations => _reservations;
 
-    public void AddReservation(Reservation reservation, Date now)
+    internal void AddReservation(Reservation reservation, Date now)
     {
 
         var reservationDate = reservation.Date;
