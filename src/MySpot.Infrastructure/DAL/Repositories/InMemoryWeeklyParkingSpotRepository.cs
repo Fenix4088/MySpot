@@ -47,6 +47,11 @@ internal class InMemoryWeeklyParkingSpotRepository : IWeeklyParkingSpotRepositor
 
     public Task<WeeklyParkingSpot> GetAsync(ParkingSpotId id) => Task.FromResult(_weeklyParkingSpot.SingleOrDefault(x => x.Id == id));
 
+    public Task<IEnumerable<WeeklyParkingSpot>> GetByWeekAsync(Week week)
+    {
+        return Task.FromResult(_weeklyParkingSpot.Select(x => x).Where(x => x.Week == week));
+    }
+
     public Task AddAsync(WeeklyParkingSpot weeklyParkingSpot)
     {
         _weeklyParkingSpot.Add(weeklyParkingSpot);

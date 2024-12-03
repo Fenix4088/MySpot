@@ -30,12 +30,12 @@ public class WeeklyParkingSpotTests
     {
         //arrange
         var invalidDate = DateTime.Parse(dateString);
-        var reservation = new Reservation(
+        var reservation = new VehicleReservation(
             Guid.NewGuid(),
             _weeklyParkingSpot.Id,
+            new Date(invalidDate),
             "Joe Dou",
-            "XYZ123",
-            new Date(invalidDate)
+            "XYZ123"
             );
         
         //act
@@ -56,20 +56,20 @@ public class WeeklyParkingSpotTests
     {
         //arrange
         var reservationDate = new DateTime(2024, 10, 11);
-        var reservation_1 = new Reservation(
+        var reservation_1 = new VehicleReservation(
             Guid.NewGuid(),
             _weeklyParkingSpot.Id,
+            new Date(reservationDate),
             "Joe Dou",
-            "XYZ123",
-            new Date(reservationDate)
+            "XYZ123"
         );
         
-        var reservation_2 = new Reservation(
+        var reservation_2 = new VehicleReservation(
             Guid.NewGuid(),
             _weeklyParkingSpot.Id,
+            new Date(reservationDate),
             "Joe Dou 2",
-            "XYZ124",
-            new Date(reservationDate)
+            "XYZ124"
         );
         
         //act
@@ -86,12 +86,12 @@ public class WeeklyParkingSpotTests
     {
         //arrange
         var reservationDate = new DateTime(2024, 10, 11);
-        var reservation = new Reservation(
+        var reservation = new VehicleReservation(
             Guid.NewGuid(),
             _weeklyParkingSpot.Id,
+            new Date(reservationDate),
             "Joe Dou",
-            "XYZ123",
-            new Date(reservationDate)
+            "XYZ123"
         );
         
         //act

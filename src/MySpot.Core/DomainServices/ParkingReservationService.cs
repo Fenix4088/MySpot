@@ -18,7 +18,7 @@ internal sealed class ParkingReservationService(IEnumerable<IReservationPolicy> 
         VehicleReservation reservation)
     {
         var parkingSpotId = parkingSpotToReserve.Id;
-        var policy = policies.SingleOrDefault(x => x.CanBeApplied(jobTitle));
+        var policy = _policies.SingleOrDefault(x => x.CanBeApplied(jobTitle));
 
         if (policy is null)
         {
