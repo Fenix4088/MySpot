@@ -44,6 +44,7 @@ public class ReservationServiceTests
         var command = new ReserveParkingSpotForVehicleCommand(
             parkingSpot.Id,
             Guid.NewGuid(),
+            1,
             "Joe Dou",
             "XYZ123",
             DateTime.UtcNow.AddMinutes(5)

@@ -51,7 +51,8 @@ public class ReservationsService(IClock clock, IWeeklyParkingSpotRepository week
             reserveParkingSpotForVehicleCommand.ParkingSpotId,
             new Date(reserveParkingSpotForVehicleCommand.Date),
             reserveParkingSpotForVehicleCommand.EmployeeName,
-            reserveParkingSpotForVehicleCommand.LicensePlate
+            reserveParkingSpotForVehicleCommand.LicensePlate,
+            reserveParkingSpotForVehicleCommand.Capacity
             );
         
         //TODO: refactor, hardcoded JobTitle.Employee policy

@@ -3,14 +3,27 @@ using MySpot.Core.ValueObjects;
 
 namespace MySpot.Core.Entities;
 
-public class WeeklyParkingSpot(ParkingSpotId id, Week week, ParkingSpotName name)
+public class WeeklyParkingSpot
 {
     private readonly HashSet<Reservation> _reservations = new();
+    public const int MaxCapacity = 2;
 
-    public ParkingSpotId Id { get; private set; } = id;
-    public Week Week { get; private set; } = week;
-    public ParkingSpotName Name { get; private set; } = name;
+    public ParkingSpotId Id { get; private set; }
+    public Week Week { get; private set; }
+    public ParkingSpotName Name { get; private set; }
     public IEnumerable<Reservation> Reservations => _reservations;
+
+    public Capacity Capacity { get; private set; }
+    
+    private WeeklyParkingSpot(ParkingSpotId id, Week week, ParkingSpotName name, Capacity capacity)
+    {
+        Id = id;
+        Week = week;
+        Name = name;
+        Capacity = capacity;
+    }
+
+    public static WeeklyParkingSpot Create(ParkingSpotId id, Week week, ParkingSpotName name) => new(id, week, name, MaxCapacity);
 
     internal void AddReservation(Reservation reservation, Date now)
     {
@@ -20,7 +33,15 @@ public class WeeklyParkingSpot(ParkingSpotId id, Week week, ParkingSpotName name
         
         if (isInvalidDate) throw new InvalidReservationDateException(reservation.Date.Value.Date);
         
-        if (_reservations.Any(r => r.Date == reservation.Date)) throw new ParkingSpotAlreadyReservedException(Name, reservation.Date);
+
+        var dateCapacity = _reservations
+            .Where(x => x.Date == reservationDate)
+            .Sum(x => x.Capacity);
+        
+        if (dateCapacity + reservation.Capacity > Capacity)
+        {
+            throw new ParkingSpotCapacityExceededException(Id);
+        }
 
         _reservations.Add(reservation);
     }

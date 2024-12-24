@@ -9,9 +9,10 @@ Content-Type: application/json
 
 {
   "parkingSpotId": "00000000-0000-0000-0000-000000000001",
-  "employeeName": "Billy Milligan",
-  "licensePlate": "ABC2234",
-  "date": "2024-12-03"
+  "capacity": 1,
+  "employeeName": "Mark Milligan",
+  "licensePlate": "ABC7734",
+  "date": "2024-12-25"
 }
 
 ###
