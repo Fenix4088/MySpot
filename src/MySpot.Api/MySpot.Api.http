@@ -1,10 +1,10 @@
 @MySpot.Api_HostAddress = http://localhost:5000
 
 ###
-GET {{MySpot.Api_HostAddress}}/Reservations
+GET {{MySpot.Api_HostAddress}}/parking-spots
 
 ###
-POST {{MySpot.Api_HostAddress}}/reservations/vehicle
+POST {{MySpot.Api_HostAddress}}/parking-spots/00000000-0000-0000-0000-000000000001/reservations/vehicle
 Content-Type: application/json
 
 {
@@ -12,7 +12,7 @@ Content-Type: application/json
   "capacity": 1,
   "employeeName": "Mark Milligan",
   "licensePlate": "ABC7734",
-  "date": "2024-12-25"
+  "date": "2024-12-27"
 }
 
 ###

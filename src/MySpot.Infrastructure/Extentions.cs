@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using MySpot.Application.Services;
+using MySpot.Application.Abstractions;
 using MySpot.Core.Abstractions;
 using MySpot.Infrastructure.DAL;
 using MySpot.Infrastructure.Exceptions;
@@ -18,10 +18,21 @@ public static class Extentions
 
         services.AddSingleton<ExceptionMiddleware>();
         
-        return services
+        services
             .AddPostgres(configuration)
             .AddSingleton<IClock, Clock>();
         // .AddSingleton<IWeeklyParkingSpotRepository, InMemoryWeeklyParkingSpotRepository>();
+        
+        //This logic automatically scan current assembly and register all DI into DI Container
+        //It works because of Scrutor nugget package added to Application assembly
+        //! Scrutor installed into Application assembly
+        var infrastructureAssembly = typeof(AppOptions).Assembly;
+        services.Scan(s => s.FromAssemblies(infrastructureAssembly)
+            .AddClasses(c => c.AssignableTo(typeof(IQueryHandler<,>)))
+            .AsImplementedInterfaces()
+            .WithScopedLifetime());
+
+        return services;
     }
 
     public static WebApplication UseInfrastructure(this WebApplication webApplication)

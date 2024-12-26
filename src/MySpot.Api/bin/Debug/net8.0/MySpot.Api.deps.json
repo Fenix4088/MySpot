@@ -981,6 +981,18 @@
           }
         }
       },
+      "Scrutor/5.1.0": {
+        "dependencies": {
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "8.0.2",
+          "Microsoft.Extensions.DependencyModel": "8.0.2"
+        },
+        "runtime": {
+          "lib/net8.0/Scrutor.dll": {
+            "assemblyVersion": "5.0.0.0",
+            "fileVersion": "5.0.0.0"
+          }
+        }
+      },
       "Swashbuckle.AspNetCore/6.4.0": {
         "dependencies": {
           "Microsoft.Extensions.ApiDescription.Server": "6.0.5",
@@ -1107,7 +1119,8 @@
       "System.Threading.Channels/6.0.0": {},
       "MySpot.Application/1.0.0": {
         "dependencies": {
-          "MySpot.Core": "1.0.0"
+          "MySpot.Core": "1.0.0",
+          "Scrutor": "5.1.0"
         },
         "runtime": {
           "MySpot.Application.dll": {}
@@ -1677,6 +1690,13 @@
       "sha512": "sha512-gFPl9Dmxih7Yi4tZ3bITzZFzbxFMBx04gqTqcjoL2r5VEW+O2TA5UVw/wm/XW26NAJ7sg59Je0+9QrwiZt6MPQ==",
       "path": "npgsql.entityframeworkcore.postgresql/8.0.10",
       "hashPath": "npgsql.entityframeworkcore.postgresql.8.0.10.nupkg.sha512"
+    },
+    "Scrutor/5.1.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-E+jpEv58Kx6jNGdox41sdIMyweB1Es3mReiK7IfUe1bsK4wnXNROUdfppBDuyTMf4/rKvwb2WBxYoOTRNJWLow==",
+      "path": "scrutor/5.1.0",
+      "hashPath": "scrutor.5.1.0.nupkg.sha512"
     },
     "Swashbuckle.AspNetCore/6.4.0": {
       "type": "package",

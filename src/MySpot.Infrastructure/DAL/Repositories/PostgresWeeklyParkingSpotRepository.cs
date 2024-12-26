@@ -25,7 +25,8 @@ internal sealed class PostgresWeeklyParkingSpotRepository(MySpotDbContext mySpot
     public async Task<IEnumerable<WeeklyParkingSpot>> GetByWeekAsync(Week week) => await mySpotDbContext
         .WeeklyParkingSpots
         .Include(x => x.Reservations)
-        .Where(x => x.Week == week).ToListAsync();
+        .Where(x => x.Week == week)
+        .ToListAsync();
 
     public async Task AddAsync(WeeklyParkingSpot weeklyParkingSpot)
     {

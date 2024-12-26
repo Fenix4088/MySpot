@@ -164,3 +164,4 @@
 /Users/fenix/Documents/webdev/courses/mySpot/MySpot/src/MySpot.Api/bin/Debug/net8.0/zh-CN/Humanizer.resources.dll
 /Users/fenix/Documents/webdev/courses/mySpot/MySpot/src/MySpot.Api/bin/Debug/net8.0/zh-Hans/Humanizer.resources.dll
 /Users/fenix/Documents/webdev/courses/mySpot/MySpot/src/MySpot.Api/bin/Debug/net8.0/zh-Hant/Humanizer.resources.dll
+/Users/fenix/Documents/webdev/courses/mySpot/MySpot/src/MySpot.Api/bin/Debug/net8.0/Scrutor.dll

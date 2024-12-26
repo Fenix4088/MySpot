@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "1pt6If3P+LhT8irGmeIjHe3L8wTQq4K8Oxd/4u253CW9afiTCPaE7OWWv+9eCa/LPQsEk0N/lwQXzccwv4ukug==",
+  "dgSpecHash": "dUJQeHAYBNTN4pd+1lgGKWWN58N5z7CGUdWw+CiLPnxKEIAeoXorirotcs/wbfU4Ik8HPVnNhxcjuawR6SDFeA==",
   "success": true,
   "projectFilePath": "/Users/fenix/Documents/webdev/courses/mySpot/MySpot/tests/MySpot.Tests.Unit/MySpot.Tests.Unit.csproj",
   "expectedPackageFiles": [
@@ -69,6 +69,7 @@
     "/Users/fenix/.nuget/packages/microsoft.extensions.configuration.abstractions/8.0.0/microsoft.extensions.configuration.abstractions.8.0.0.nupkg.sha512",
     "/Users/fenix/.nuget/packages/microsoft.extensions.dependencyinjection/8.0.1/microsoft.extensions.dependencyinjection.8.0.1.nupkg.sha512",
     "/Users/fenix/.nuget/packages/microsoft.extensions.dependencyinjection.abstractions/8.0.2/microsoft.extensions.dependencyinjection.abstractions.8.0.2.nupkg.sha512",
+    "/Users/fenix/.nuget/packages/microsoft.extensions.dependencymodel/8.0.2/microsoft.extensions.dependencymodel.8.0.2.nupkg.sha512",
     "/Users/fenix/.nuget/packages/microsoft.extensions.logging/8.0.1/microsoft.extensions.logging.8.0.1.nupkg.sha512",
     "/Users/fenix/.nuget/packages/microsoft.extensions.logging.abstractions/8.0.2/microsoft.extensions.logging.abstractions.8.0.2.nupkg.sha512",
     "/Users/fenix/.nuget/packages/microsoft.extensions.options/8.0.2/microsoft.extensions.options.8.0.2.nupkg.sha512",
@@ -101,6 +102,7 @@
     "/Users/fenix/.nuget/packages/runtime.ubuntu.14.04-x64.runtime.native.system.security.cryptography.openssl/4.3.0/runtime.ubuntu.14.04-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",
     "/Users/fenix/.nuget/packages/runtime.ubuntu.16.04-x64.runtime.native.system.security.cryptography.openssl/4.3.0/runtime.ubuntu.16.04-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",
     "/Users/fenix/.nuget/packages/runtime.ubuntu.16.10-x64.runtime.native.system.security.cryptography.openssl/4.3.0/runtime.ubuntu.16.10-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",
+    "/Users/fenix/.nuget/packages/scrutor/5.1.0/scrutor.5.1.0.nupkg.sha512",
     "/Users/fenix/.nuget/packages/should/1.1.20/should.1.1.20.nupkg.sha512",
     "/Users/fenix/.nuget/packages/shouldly/4.2.1/shouldly.4.2.1.nupkg.sha512",
     "/Users/fenix/.nuget/packages/swashbuckle.aspnetcore/6.4.0/swashbuckle.aspnetcore.6.4.0.nupkg.sha512",

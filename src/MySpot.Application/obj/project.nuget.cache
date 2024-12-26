@@ -1,10 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "Pa1pu32QfTKlBlIGD53gENYV3OFwppDoQ6VFHvssMbkm2cUif3iLzKJVPF6CKM4QjXFqv+2HpUwX67PMXIVcYA==",
+  "dgSpecHash": "JGFweJEJl6SvdzFiydP1P47zaMIM3n8eIhgTiavc4vCh609WKpSZQ/S5eG86WD96HJ1I2iHI4fwoi2HLWs8hug==",
   "success": true,
   "projectFilePath": "/Users/fenix/Documents/webdev/courses/mySpot/MySpot/src/MySpot.Application/MySpot.Application.csproj",
   "expectedPackageFiles": [
-    "/Users/fenix/.nuget/packages/microsoft.extensions.dependencyinjection.abstractions/8.0.2/microsoft.extensions.dependencyinjection.abstractions.8.0.2.nupkg.sha512"
+    "/Users/fenix/.nuget/packages/microsoft.extensions.dependencyinjection.abstractions/8.0.2/microsoft.extensions.dependencyinjection.abstractions.8.0.2.nupkg.sha512",
+    "/Users/fenix/.nuget/packages/microsoft.extensions.dependencymodel/8.0.2/microsoft.extensions.dependencymodel.8.0.2.nupkg.sha512",
+    "/Users/fenix/.nuget/packages/scrutor/5.1.0/scrutor.5.1.0.nupkg.sha512"
   ],
   "logs": []
 }

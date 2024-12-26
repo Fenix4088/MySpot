@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "EwcoP0e2+TS09WRqSMx7WPRd+Pw/rLXnbCRc2Cecqs8nehmvWdr1hZON26ED0+DDxeCsCoz8ye7t7HhqRsg2tw==",
+  "dgSpecHash": "rvtlDWg4GUJAnNFOMG9QAQY6Ro8M8xfC+4pYUhqdNpLytlTx3SmLO7NuB8A9+3oPOLkmqFAsPjIkAKjFao3ahw==",
   "success": true,
   "projectFilePath": "/Users/fenix/Documents/webdev/courses/mySpot/MySpot/src/MySpot.Api/MySpot.Api.csproj",
   "expectedPackageFiles": [
@@ -81,6 +81,7 @@
     "/Users/fenix/.nuget/packages/mono.texttemplating/2.2.1/mono.texttemplating.2.2.1.nupkg.sha512",
     "/Users/fenix/.nuget/packages/npgsql/8.0.5/npgsql.8.0.5.nupkg.sha512",
     "/Users/fenix/.nuget/packages/npgsql.entityframeworkcore.postgresql/8.0.10/npgsql.entityframeworkcore.postgresql.8.0.10.nupkg.sha512",
+    "/Users/fenix/.nuget/packages/scrutor/5.1.0/scrutor.5.1.0.nupkg.sha512",
     "/Users/fenix/.nuget/packages/swashbuckle.aspnetcore/6.4.0/swashbuckle.aspnetcore.6.4.0.nupkg.sha512",
     "/Users/fenix/.nuget/packages/swashbuckle.aspnetcore.swagger/6.4.0/swashbuckle.aspnetcore.swagger.6.4.0.nupkg.sha512",
     "/Users/fenix/.nuget/packages/swashbuckle.aspnetcore.swaggergen/6.4.0/swashbuckle.aspnetcore.swaggergen.6.4.0.nupkg.sha512",
