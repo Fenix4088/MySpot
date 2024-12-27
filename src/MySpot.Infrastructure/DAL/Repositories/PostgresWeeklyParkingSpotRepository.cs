@@ -31,13 +31,12 @@ internal sealed class PostgresWeeklyParkingSpotRepository(MySpotDbContext mySpot
     public async Task AddAsync(WeeklyParkingSpot weeklyParkingSpot)
     {
         await _mySpotDbContext.AddAsync(weeklyParkingSpot);
-        await _mySpotDbContext.SaveChangesAsync();
     }
 
-    public async Task UpdateAsync(WeeklyParkingSpot weeklyParkingSpot)
+    public Task UpdateAsync(WeeklyParkingSpot weeklyParkingSpot)
     {
         _mySpotDbContext.Update(weeklyParkingSpot);
-        await _mySpotDbContext.SaveChangesAsync();
+        return Task.CompletedTask;
     }
 
     public async Task DeleteAsync(WeeklyParkingSpot weeklyParkingSpot)

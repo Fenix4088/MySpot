@@ -16,11 +16,11 @@ Content-Type: application/json
 }
 
 ###
-POST {{MySpot.Api_HostAddress}}/Reservations/cleaning
+POST {{MySpot.Api_HostAddress}}/parking-spots/reservations/cleaning
 Content-Type: application/json
 
 {
-  "date": "2024-12-03"
+  "date": "2024-12-28"
 }
 
 ###
