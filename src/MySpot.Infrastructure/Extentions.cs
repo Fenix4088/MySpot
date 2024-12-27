@@ -5,6 +5,7 @@ using MySpot.Application.Abstractions;
 using MySpot.Core.Abstractions;
 using MySpot.Infrastructure.DAL;
 using MySpot.Infrastructure.Exceptions;
+using MySpot.Infrastructure.Logging;
 using MySpot.Infrastructure.Time;
 
 namespace MySpot.Infrastructure;
@@ -20,7 +21,8 @@ public static class Extentions
         
         services
             .AddPostgres(configuration)
-            .AddSingleton<IClock, Clock>();
+            .AddSingleton<IClock, Clock>()
+            .AddCustomLogging();
         // .AddSingleton<IWeeklyParkingSpotRepository, InMemoryWeeklyParkingSpotRepository>();
         
         //This logic automatically scan current assembly and register all DI into DI Container
