@@ -6,6 +6,7 @@ using MySpot.Core.Abstractions;
 using MySpot.Infrastructure.DAL;
 using MySpot.Infrastructure.Exceptions;
 using MySpot.Infrastructure.Logging;
+using MySpot.Infrastructure.Security;
 using MySpot.Infrastructure.Time;
 
 namespace MySpot.Infrastructure;
@@ -18,6 +19,7 @@ public static class Extentions
         services.Configure<AppOptions>(section);
 
         services.AddSingleton<ExceptionMiddleware>();
+        services.AddSecurity();
         
         services
             .AddPostgres(configuration)

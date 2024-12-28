@@ -1,5 +1,25 @@
 @MySpot.Api_HostAddress = http://localhost:5000
 
+### User Controller
+###
+POST {{MySpot.Api_HostAddress}}/users
+Content-Type: application/json
+
+{
+  "email": "test@mail.com",
+  "username": "user123",
+  "password": "secret",
+  "fullName": "User User",
+  "role": "user"
+}
+
+###
+GET {{MySpot.Api_HostAddress}}/users
+
+### 
+GET {{MySpot.Api_HostAddress}}/users/ebe7a009-69b7-4b27-9548-cedbaaabcbe6
+
+### Parking Spots Controller
 ###
 GET {{MySpot.Api_HostAddress}}/parking-spots
 

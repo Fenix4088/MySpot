@@ -21,4 +21,12 @@ internal static class Extentions
             Type = x is VehicleReservation ? "vehicle" : "cleaning"
         })
     };
+    
+    public static UserDto AsDto(this User entity)
+        => new()
+        {
+            Id = entity.Id,
+            Username = entity.Username,
+            FullName = entity.FullName
+        };
 }

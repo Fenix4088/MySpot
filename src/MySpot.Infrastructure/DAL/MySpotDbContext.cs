@@ -8,6 +8,8 @@ public sealed class MySpotDbContext(DbContextOptions<MySpotDbContext> options): 
     public DbSet<Reservation> Reservations { get; set; }
     public DbSet<WeeklyParkingSpot> WeeklyParkingSpots { get; set; }
 
+    public DbSet<User> Users { get; set; }
+
     protected override void OnModelCreating(ModelBuilder builder)
     {
         builder.ApplyConfigurationsFromAssembly(GetType().Assembly);
