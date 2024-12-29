@@ -22,6 +22,7 @@ public static class Extentions
         services.AddSingleton<ExceptionMiddleware>();
         services.AddSecurity();
         services.AddAuth(configuration);
+        services.AddHttpContextAccessor();
         
         services
             .AddPostgres(configuration)
@@ -45,6 +46,7 @@ public static class Extentions
     {
         webApplication.UseMiddleware<ExceptionMiddleware>();
         webApplication.UseAuthentication();
+        webApplication.UseAuthorization();
         webApplication.MapControllers();
         return webApplication;
     }

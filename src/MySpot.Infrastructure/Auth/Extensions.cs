@@ -4,6 +4,8 @@ using Microsoft.Extensions.DependencyInjection;
 using MySpot.Infrastructure.DAL;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using MySpot.Application.Security;
+using MySpot.Infrastructure.Security;
 
 namespace MySpot.Infrastructure.Auth;
 
@@ -17,6 +19,8 @@ public static class Extensions
         var options = config.GetOptions<AuthOptions>(SectionName);
 
         services
+            .AddSingleton<IAuthenticator, Authenticator>()
+            .AddSingleton<ITokenStorage, HttpContextTokenStorage>()
             .AddAuthentication(x =>
             {
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -33,6 +37,8 @@ public static class Extensions
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(options.SigningKey))
                 };
             });
+
+        services.AddAuthorization();
         return services;
     }
 }

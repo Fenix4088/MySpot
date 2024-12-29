@@ -1,5 +1,5 @@
 @MySpot.Api_HostAddress = http://localhost:5000
-
+@accessToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJlYmU3YTAwOS02OWI3LTRiMjctOTU0OC1jZWRiYWFhYmNiZTYiLCJ1bmlxdWVfbmFtZSI6ImViZTdhMDA5LTY5YjctNGIyNy05NTQ4LWNlZGJhYWFiY2JlNiIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6InVzZXIiLCJuYmYiOjE3MzU0NzM4MTEsImV4cCI6MTczNTQ3NzQxMSwiaXNzIjoibXlzcG90LWlzc3VlciIsImF1ZCI6Im15c3BvdC1hdWRpZW5jZSJ9.JPz9QQr8hjUPYot9Uy9K6CVEVzv14Wzi-GuwuaOkaME
 ### User Controller
 ###
 POST {{MySpot.Api_HostAddress}}/users
@@ -12,6 +12,23 @@ Content-Type: application/json
   "fullName": "User User",
   "role": "user"
 }
+
+###
+# @name sign-in
+POST {{MySpot.Api_HostAddress}}/users/sign-in
+Content-Type: application/json
+
+{
+  "email": "test@mail.com",
+  "password": "secret"
+}
+
+###
+GET {{MySpot.Api_HostAddress}}/users/me
+Authorization: Bearer {{accessToken}}
+
+###
+GET {{MySpot.Api_HostAddress}}/users/jwt
 
 ###
 GET {{MySpot.Api_HostAddress}}/users
