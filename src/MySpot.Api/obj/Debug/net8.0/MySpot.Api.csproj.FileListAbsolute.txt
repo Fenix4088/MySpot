@@ -194,3 +194,5 @@
 /Users/fenix/Documents/webdev/courses/mySpot/MySpot/src/MySpot.Api/bin/Debug/net8.0/Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
 /Users/fenix/Documents/webdev/courses/mySpot/MySpot/src/MySpot.Api/bin/Debug/net8.0/Microsoft.IdentityModel.Tokens.dll
 /Users/fenix/Documents/webdev/courses/mySpot/MySpot/src/MySpot.Api/bin/Debug/net8.0/System.IdentityModel.Tokens.Jwt.dll
+/Users/fenix/Documents/webdev/courses/mySpot/MySpot/src/MySpot.Api/bin/Debug/net8.0/Swashbuckle.AspNetCore.Annotations.dll
+/Users/fenix/Documents/webdev/courses/mySpot/MySpot/src/MySpot.Api/bin/Debug/net8.0/Swashbuckle.AspNetCore.ReDoc.dll

@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.OpenApi.Models;
 using MySpot.Application.Abstractions;
 using MySpot.Core.Abstractions;
 using MySpot.Infrastructure.Auth;
@@ -38,16 +39,36 @@ public static class Extentions
             .AddClasses(c => c.AssignableTo(typeof(IQueryHandler<,>)))
             .AsImplementedInterfaces()
             .WithScopedLifetime());
+        
+        services.AddEndpointsApiExplorer();
+        services.AddSwaggerGen(swagger =>
+        {
+            swagger.EnableAnnotations();
+            swagger.SwaggerDoc("v1", new OpenApiInfo
+            {
+                Title = "MySpot Api",
+                Version = "v1"
+            });
+        });
 
         return services;
     }
 
-    public static WebApplication UseInfrastructure(this WebApplication webApplication)
+    public static WebApplication UseInfrastructure(this WebApplication app)
     {
-        webApplication.UseMiddleware<ExceptionMiddleware>();
-        webApplication.UseAuthentication();
-        webApplication.UseAuthorization();
-        webApplication.MapControllers();
-        return webApplication;
+        app.UseMiddleware<ExceptionMiddleware>();
+        app.UseSwagger();
+        // app.UseSwaggerUI();
+        // UseReDoc instead of UseSwaggerUI (change UI for swagger)
+        app.UseReDoc(reDoc =>
+        {
+            reDoc.RoutePrefix = "docs";
+            reDoc.DocumentTitle = "MySpot API";
+            reDoc.SpecUrl("/swagger/v1/swagger.json");
+        });
+        app.UseAuthentication();
+        app.UseAuthorization();
+        app.MapControllers();
+        return app;
     }
 }
