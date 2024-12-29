@@ -1,16 +1,16 @@
 @MySpot.Api_HostAddress = http://localhost:5000
-@accessToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJlYmU3YTAwOS02OWI3LTRiMjctOTU0OC1jZWRiYWFhYmNiZTYiLCJ1bmlxdWVfbmFtZSI6ImViZTdhMDA5LTY5YjctNGIyNy05NTQ4LWNlZGJhYWFiY2JlNiIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6InVzZXIiLCJuYmYiOjE3MzU0NzM4MTEsImV4cCI6MTczNTQ3NzQxMSwiaXNzIjoibXlzcG90LWlzc3VlciIsImF1ZCI6Im15c3BvdC1hdWRpZW5jZSJ9.JPz9QQr8hjUPYot9Uy9K6CVEVzv14Wzi-GuwuaOkaME
+@accessToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyMzE2NGEzNC04ZWJkLTQ3OGItODM5ZS05NWNhNmZjNTM4MzIiLCJ1bmlxdWVfbmFtZSI6IjIzMTY0YTM0LThlYmQtNDc4Yi04MzllLTk1Y2E2ZmM1MzgzMiIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6ImFkbWluIiwibmJmIjoxNzM1NDc0ODQ1LCJleHAiOjE3MzU0Nzg0NDUsImlzcyI6Im15c3BvdC1pc3N1ZXIiLCJhdWQiOiJteXNwb3QtYXVkaWVuY2UifQ.d44XRIC950HPMTShk1toi5DjbRCFBMr-SVIftT635wM
 ### User Controller
 ###
 POST {{MySpot.Api_HostAddress}}/users
 Content-Type: application/json
 
 {
-  "email": "test@mail.com",
-  "username": "user123",
+  "email": "test-admin@mail.com",
+  "username": "admin123",
   "password": "secret",
-  "fullName": "User User",
-  "role": "user"
+  "fullName": "Admin Admin",
+  "role": "admin"
 }
 
 ###
@@ -19,7 +19,7 @@ POST {{MySpot.Api_HostAddress}}/users/sign-in
 Content-Type: application/json
 
 {
-  "email": "test@mail.com",
+  "email": "test-admin@mail.com",
   "password": "secret"
 }
 
@@ -32,6 +32,7 @@ GET {{MySpot.Api_HostAddress}}/users/jwt
 
 ###
 GET {{MySpot.Api_HostAddress}}/users
+Authorization: Bearer {{accessToken}}
 
 ### 
 GET {{MySpot.Api_HostAddress}}/users/ebe7a009-69b7-4b27-9548-cedbaaabcbe6

@@ -23,6 +23,7 @@ public class UsersController(
     private readonly ITokenStorage _tokenStorage = tokenStorage;
     
     [HttpGet("{userId:guid}")]
+    [Authorize(Policy = "is-admin")]
     public async Task<ActionResult<UserDto>> Get(Guid userId)
     {
         var user = await _getUserQueryHandler.HandleAsync(new GetUserQuery {UserId = userId});
@@ -50,6 +51,7 @@ public class UsersController(
     }
 
     [HttpGet]
+    [Authorize(Policy = "is-admin")]
     public async Task<ActionResult<IEnumerable<UserDto>>> Get([FromQuery] GetUsersQuery query)
         => Ok(await _getUsersQueryHandler.HandleAsync(query));
 
