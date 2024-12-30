@@ -7,5 +7,8 @@
     &lt;TestId&gt;xUnit::820C9B2A-53CE-489C-BCBD-93D517E22E88::net8.0::MySpot.Tests.Unit.Services.ReservationServiceTests.give_reservation_for_not_taken_date_create_reservation_should_succeed&lt;/TestId&gt;
     &lt;TestId&gt;xUnit::820C9B2A-53CE-489C-BCBD-93D517E22E88::net8.0::MySpot.Tests.Unit.Framework.ServiceCollectionTests.test&lt;/TestId&gt;
     &lt;TestId&gt;xUnit::820C9B2A-53CE-489C-BCBD-93D517E22E88::net8.0::MySpot.Tests.Unit.Services.ReservationServiceTests&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::59D9267B-58AF-4166-886E-F7184F83A89F::net8.0::MySpot.Tests.Integration.Controllers.UserControllerTests.post_users_should_return_created_201_status_code&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::59D9267B-58AF-4166-886E-F7184F83A89F::net8.0::MySpot.Tests.Integration.Controllers.UserControllerTests.post_sign_in_should_return_ok_200_status_and_jwt&lt;/TestId&gt;
+    &lt;TestId&gt;xUnit::59D9267B-58AF-4166-886E-F7184F83A89F::net8.0::MySpot.Tests.Integration.Controllers.UserControllerTests.get_users_me_should_return_ok_200_status_code_and_user&lt;/TestId&gt;
   &lt;/TestAncestor&gt;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>

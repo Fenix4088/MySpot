@@ -1,0 +1,6 @@
+{
+  "MySpot.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "\/Users\/fenix\/Documents\/webdev\/courses\/mySpot\/MySpot\/src\/MySpot.Api",
+  "MySpot.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "\/Users\/fenix\/Documents\/webdev\/courses\/mySpot\/MySpot\/src\/MySpot.Application",
+  "MySpot.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "\/Users\/fenix\/Documents\/webdev\/courses\/mySpot\/MySpot\/src\/MySpot.Core",
+  "MySpot.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "\/Users\/fenix\/Documents\/webdev\/courses\/mySpot\/MySpot\/src\/MySpot.Infrastructure"
+}

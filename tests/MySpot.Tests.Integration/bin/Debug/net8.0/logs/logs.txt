@@ -1,0 +1,735 @@
+2024-12-30 13:06:12.981 +01:00 [INF] User profile is available. Using '/Users/fenix/.aspnet/DataProtection-Keys' as key repository; keys will not be encrypted at rest.
+2024-12-30 13:06:13.491 +01:00 [INF] Executed DbCommand (65ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE DATABASE "MySpot-test";
+2024-12-30 13:06:13.540 +01:00 [INF] Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE "__EFMigrationsHistory" (
+    "MigrationId" character varying(150) NOT NULL,
+    "ProductVersion" character varying(32) NOT NULL,
+    CONSTRAINT "PK___EFMigrationsHistory" PRIMARY KEY ("MigrationId")
+);
+2024-12-30 13:06:13.559 +01:00 [INF] Executed DbCommand (15ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1 FROM pg_catalog.pg_class c
+    JOIN pg_catalog.pg_namespace n ON n.oid=c.relnamespace
+    WHERE n.nspname='public' AND
+          c.relname='__EFMigrationsHistory'
+)
+2024-12-30 13:06:13.561 +01:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "MigrationId", "ProductVersion"
+FROM "__EFMigrationsHistory"
+ORDER BY "MigrationId";
+2024-12-30 13:06:13.566 +01:00 [INF] Applying migration '20241102174252_Init'.
+2024-12-30 13:06:13.579 +01:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE "WeeklyParkingSpots" (
+    "Id" uuid NOT NULL,
+    "Week" timestamp with time zone NOT NULL,
+    "Name" text NOT NULL,
+    CONSTRAINT "PK_WeeklyParkingSpots" PRIMARY KEY ("Id")
+);
+2024-12-30 13:06:13.581 +01:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE "Reservations" (
+    "Id" uuid NOT NULL,
+    "ParkingSpotId" uuid NOT NULL,
+    "EmployeeName" text NOT NULL,
+    "LicensePlate" text NOT NULL,
+    "Date" timestamp with time zone NOT NULL,
+    "WeeklyParkingSpotId" uuid,
+    CONSTRAINT "PK_Reservations" PRIMARY KEY ("Id"),
+    CONSTRAINT "FK_Reservations_WeeklyParkingSpots_WeeklyParkingSpotId" FOREIGN KEY ("WeeklyParkingSpotId") REFERENCES "WeeklyParkingSpots" ("Id")
+);
+2024-12-30 13:06:13.583 +01:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX "IX_Reservations_WeeklyParkingSpotId" ON "Reservations" ("WeeklyParkingSpotId");
+2024-12-30 13:06:13.583 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
+VALUES ('20241102174252_Init', '8.0.10');
+2024-12-30 13:06:13.586 +01:00 [INF] Applying migration '20241201130921_CleaningReservation'.
+2024-12-30 13:06:13.592 +01:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+ALTER TABLE "Reservations" ALTER COLUMN "LicensePlate" DROP NOT NULL;
+2024-12-30 13:06:13.592 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+ALTER TABLE "Reservations" ALTER COLUMN "EmployeeName" DROP NOT NULL;
+2024-12-30 13:06:13.593 +01:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+ALTER TABLE "Reservations" ADD "Type" character varying(21) NOT NULL DEFAULT '';
+2024-12-30 13:06:13.593 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
+VALUES ('20241201130921_CleaningReservation', '8.0.10');
+2024-12-30 13:06:13.594 +01:00 [INF] Applying migration '20241224115702_Introducing_Capacity'.
+2024-12-30 13:06:13.596 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+ALTER TABLE "WeeklyParkingSpots" ADD "Capacity" integer NOT NULL DEFAULT 0;
+2024-12-30 13:06:13.597 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+ALTER TABLE "Reservations" ADD "Capacity" integer NOT NULL DEFAULT 0;
+2024-12-30 13:06:13.597 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
+VALUES ('20241224115702_Introducing_Capacity', '8.0.10');
+2024-12-30 13:06:13.597 +01:00 [INF] Applying migration '20241228131830_AddUser'.
+2024-12-30 13:06:13.601 +01:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE "Users" (
+    "Id" uuid NOT NULL,
+    "Email" character varying(100) NOT NULL,
+    "Username" character varying(30) NOT NULL,
+    "Password" character varying(200) NOT NULL,
+    "FullName" character varying(100) NOT NULL,
+    "Role" character varying(30) NOT NULL,
+    "CreatedAt" timestamp without time zone NOT NULL,
+    CONSTRAINT "PK_Users" PRIMARY KEY ("Id")
+);
+2024-12-30 13:06:13.603 +01:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX "IX_Users_Email" ON "Users" ("Email");
+2024-12-30 13:06:13.603 +01:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX "IX_Users_Username" ON "Users" ("Username");
+2024-12-30 13:06:13.604 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
+VALUES ('20241228131830_AddUser', '8.0.10');
+2024-12-30 13:06:13.666 +01:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT w."Id", w."Capacity", w."Name", w."Week"
+FROM "WeeklyParkingSpots" AS w
+2024-12-30 13:06:13.727 +01:00 [INF] Executed DbCommand (7ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (DbType = Int32), @p2='?', @p3='?' (DbType = DateTimeOffset), @p4='?' (DbType = Guid), @p5='?' (DbType = Int32), @p6='?', @p7='?' (DbType = DateTimeOffset), @p8='?' (DbType = Guid), @p9='?' (DbType = Int32), @p10='?', @p11='?' (DbType = DateTimeOffset), @p12='?' (DbType = Guid), @p13='?' (DbType = Int32), @p14='?', @p15='?' (DbType = DateTimeOffset), @p16='?' (DbType = Guid), @p17='?' (DbType = Int32), @p18='?', @p19='?' (DbType = DateTimeOffset)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "WeeklyParkingSpots" ("Id", "Capacity", "Name", "Week")
+VALUES (@p0, @p1, @p2, @p3);
+INSERT INTO "WeeklyParkingSpots" ("Id", "Capacity", "Name", "Week")
+VALUES (@p4, @p5, @p6, @p7);
+INSERT INTO "WeeklyParkingSpots" ("Id", "Capacity", "Name", "Week")
+VALUES (@p8, @p9, @p10, @p11);
+INSERT INTO "WeeklyParkingSpots" ("Id", "Capacity", "Name", "Week")
+VALUES (@p12, @p13, @p14, @p15);
+INSERT INTO "WeeklyParkingSpots" ("Id", "Capacity", "Name", "Week")
+VALUES (@p16, @p17, @p18, @p19);
+2024-12-30 13:06:13.769 +01:00 [INF] Request starting HTTP/1.1 POST http://localhost/users - application/json; charset=utf-8 149
+2024-12-30 13:06:13.794 +01:00 [INF] Executing endpoint 'MySpot.Api.Controllers.UsersController.Post (MySpot.Api)'
+2024-12-30 13:06:13.802 +01:00 [INF] Route matched with {action = "Post", controller = "Users"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult] Post(MySpot.Application.Commands.SignUpCommand) on controller MySpot.Api.Controllers.UsersController (MySpot.Api).
+2024-12-30 13:06:13.831 +01:00 [INF] Starting handling a command sign_up_command...
+2024-12-30 13:06:13.892 +01:00 [INF] Executed DbCommand (2ms) [Parameters=[@__email_0='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT u."Id", u."CreatedAt", u."Email", u."FullName", u."Password", u."Role", u."Username"
+FROM "Users" AS u
+WHERE u."Email" = @__email_0
+LIMIT 2
+2024-12-30 13:06:13.898 +01:00 [INF] Executed DbCommand (1ms) [Parameters=[@__username_0='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT u."Id", u."CreatedAt", u."Email", u."FullName", u."Password", u."Role", u."Username"
+FROM "Users" AS u
+WHERE u."Username" = @__username_0
+LIMIT 2
+2024-12-30 13:06:13.963 +01:00 [INF] Executed DbCommand (1ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (DbType = DateTime), @p2='?', @p3='?', @p4='?', @p5='?', @p6='?'], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Users" ("Id", "CreatedAt", "Email", "FullName", "Password", "Role", "Username")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6);
+2024-12-30 13:06:13.968 +01:00 [INF] Completed handling a command sign_up_command in "00:00:00.1384261"
+2024-12-30 13:06:13.971 +01:00 [INF] Executing CreatedAtActionResult, writing value of type 'null'.
+2024-12-30 13:06:13.978 +01:00 [INF] Executed action MySpot.Api.Controllers.UsersController.Post (MySpot.Api) in 174.8844ms
+2024-12-30 13:06:13.979 +01:00 [INF] Executed endpoint 'MySpot.Api.Controllers.UsersController.Post (MySpot.Api)'
+2024-12-30 13:06:13.982 +01:00 [INF] Request finished HTTP/1.1 POST http://localhost/users - 201 null null 214.8417ms
+2024-12-30 13:09:23.101 +01:00 [INF] User profile is available. Using '/Users/fenix/.aspnet/DataProtection-Keys' as key repository; keys will not be encrypted at rest.
+2024-12-30 13:09:23.548 +01:00 [INF] Executed DbCommand (23ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1 FROM pg_catalog.pg_class c
+    JOIN pg_catalog.pg_namespace n ON n.oid=c.relnamespace
+    WHERE n.nspname='public' AND
+          c.relname='__EFMigrationsHistory'
+)
+2024-12-30 13:09:23.556 +01:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "MigrationId", "ProductVersion"
+FROM "__EFMigrationsHistory"
+ORDER BY "MigrationId";
+2024-12-30 13:09:23.566 +01:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1 FROM pg_catalog.pg_class c
+    JOIN pg_catalog.pg_namespace n ON n.oid=c.relnamespace
+    WHERE n.nspname='public' AND
+          c.relname='__EFMigrationsHistory'
+)
+2024-12-30 13:09:23.573 +01:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1 FROM pg_catalog.pg_class c
+    JOIN pg_catalog.pg_namespace n ON n.oid=c.relnamespace
+    WHERE n.nspname='public' AND
+          c.relname='__EFMigrationsHistory'
+)
+2024-12-30 13:09:23.573 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "MigrationId", "ProductVersion"
+FROM "__EFMigrationsHistory"
+ORDER BY "MigrationId";
+2024-12-30 13:09:23.578 +01:00 [INF] No migrations were applied. The database is already up to date.
+2024-12-30 13:09:23.639 +01:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT w."Id", w."Capacity", w."Name", w."Week"
+FROM "WeeklyParkingSpots" AS w
+2024-12-30 13:09:23.692 +01:00 [INF] Request starting HTTP/1.1 POST http://localhost/users - application/json; charset=utf-8 149
+2024-12-30 13:09:23.718 +01:00 [INF] Executing endpoint 'MySpot.Api.Controllers.UsersController.Post (MySpot.Api)'
+2024-12-30 13:09:23.724 +01:00 [INF] Route matched with {action = "Post", controller = "Users"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult] Post(MySpot.Application.Commands.SignUpCommand) on controller MySpot.Api.Controllers.UsersController (MySpot.Api).
+2024-12-30 13:09:23.744 +01:00 [INF] Starting handling a command sign_up_command...
+2024-12-30 13:09:23.805 +01:00 [INF] Executed DbCommand (6ms) [Parameters=[@__email_0='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT u."Id", u."CreatedAt", u."Email", u."FullName", u."Password", u."Role", u."Username"
+FROM "Users" AS u
+WHERE u."Email" = @__email_0
+LIMIT 2
+2024-12-30 13:09:23.819 +01:00 [INF] Executed action MySpot.Api.Controllers.UsersController.Post (MySpot.Api) in 93.4688ms
+2024-12-30 13:09:23.820 +01:00 [INF] Executed endpoint 'MySpot.Api.Controllers.UsersController.Post (MySpot.Api)'
+2024-12-30 13:09:23.821 +01:00 [ERR] Email: 'test@gmail.com' is already in use.
+MySpot.Application.Exceptions.EmailAlreadyInUseException: Email: 'test@gmail.com' is already in use.
+   at MySpot.Application.Commands.Handlers.SignUpCommandHandler.HandleAsync(SignUpCommand command) in /Users/fenix/Documents/webdev/courses/mySpot/MySpot/src/MySpot.Application/Commands/Handlers/SignUpCommandHandler.cs:line 27
+   at MySpot.Infrastructure.DAL.PostgresUnitOfWork.ExecuteAsync(Func`1 action) in /Users/fenix/Documents/webdev/courses/mySpot/MySpot/src/MySpot.Infrastructure/DAL/PostgressUnitOfWork.cs:line 13
+   at MySpot.Infrastructure.DAL.PostgresUnitOfWork.ExecuteAsync(Func`1 action) in /Users/fenix/Documents/webdev/courses/mySpot/MySpot/src/MySpot.Infrastructure/DAL/PostgressUnitOfWork.cs:line 20
+   at MySpot.Infrastructure.DAL.PostgresUnitOfWork.ExecuteAsync(Func`1 action) in /Users/fenix/Documents/webdev/courses/mySpot/MySpot/src/MySpot.Infrastructure/DAL/PostgressUnitOfWork.cs:line 21
+   at MySpot.Infrastructure.DAL.Decorators.UnitOfWorkCommandHandlerDecorator`1.HandleAsync(TCommand command) in /Users/fenix/Documents/webdev/courses/mySpot/MySpot/src/MySpot.Infrastructure/DAL/Decorators/UnitOfWorkCommandHandlerDecorator.cs:line 13
+   at MySpot.Infrastructure.Logging.LoggingCommandHandlerDecorator`1.HandleAsync(TCommand command) in /Users/fenix/Documents/webdev/courses/mySpot/MySpot/src/MySpot.Infrastructure/Logging/LoggingCommandHandlerDecorator.cs:line 18
+   at MySpot.Api.Controllers.UsersController.Post(SignUpCommand command) in /Users/fenix/Documents/webdev/courses/mySpot/MySpot/src/MySpot.Api/Controllers/UsersController.cs:line 68
+   at lambda_method70(Closure, Object)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|7_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.ReDoc.ReDocMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at MySpot.Infrastructure.Exceptions.ExceptionMiddleware.InvokeAsync(HttpContext context, RequestDelegate next) in /Users/fenix/Documents/webdev/courses/mySpot/MySpot/src/MySpot.Infrastructure/Exceptions/ExceptionMiddleware.cs:line 16
+2024-12-30 13:09:23.835 +01:00 [INF] Request finished HTTP/1.1 POST http://localhost/users - 400 null application/json; charset=utf-8 143.6283ms
+2024-12-30 13:09:56.016 +01:00 [INF] User profile is available. Using '/Users/fenix/.aspnet/DataProtection-Keys' as key repository; keys will not be encrypted at rest.
+2024-12-30 13:09:56.828 +01:00 [INF] Executed DbCommand (44ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1 FROM pg_catalog.pg_class c
+    JOIN pg_catalog.pg_namespace n ON n.oid=c.relnamespace
+    WHERE n.nspname='public' AND
+          c.relname='__EFMigrationsHistory'
+)
+2024-12-30 13:09:56.842 +01:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "MigrationId", "ProductVersion"
+FROM "__EFMigrationsHistory"
+ORDER BY "MigrationId";
+2024-12-30 13:09:56.854 +01:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1 FROM pg_catalog.pg_class c
+    JOIN pg_catalog.pg_namespace n ON n.oid=c.relnamespace
+    WHERE n.nspname='public' AND
+          c.relname='__EFMigrationsHistory'
+)
+2024-12-30 13:09:56.861 +01:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1 FROM pg_catalog.pg_class c
+    JOIN pg_catalog.pg_namespace n ON n.oid=c.relnamespace
+    WHERE n.nspname='public' AND
+          c.relname='__EFMigrationsHistory'
+)
+2024-12-30 13:09:56.862 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "MigrationId", "ProductVersion"
+FROM "__EFMigrationsHistory"
+ORDER BY "MigrationId";
+2024-12-30 13:09:56.869 +01:00 [INF] No migrations were applied. The database is already up to date.
+2024-12-30 13:09:56.970 +01:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT w."Id", w."Capacity", w."Name", w."Week"
+FROM "WeeklyParkingSpots" AS w
+2024-12-30 13:10:03.701 +01:00 [INF] Request starting HTTP/1.1 POST http://localhost/users - application/json; charset=utf-8 149
+2024-12-30 13:10:03.761 +01:00 [INF] Executing endpoint 'MySpot.Api.Controllers.UsersController.Post (MySpot.Api)'
+2024-12-30 13:10:03.770 +01:00 [INF] Route matched with {action = "Post", controller = "Users"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult] Post(MySpot.Application.Commands.SignUpCommand) on controller MySpot.Api.Controllers.UsersController (MySpot.Api).
+2024-12-30 13:10:03.799 +01:00 [INF] Executing action method MySpot.Api.Controllers.UsersController.Post (MySpot.Api) - Validation state: "Valid"
+2024-12-30 13:10:03.837 +01:00 [INF] Starting handling a command sign_up_command...
+2024-12-30 13:10:03.951 +01:00 [INF] Executed DbCommand (16ms) [Parameters=[@__email_0='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT u."Id", u."CreatedAt", u."Email", u."FullName", u."Password", u."Role", u."Username"
+FROM "Users" AS u
+WHERE u."Email" = @__email_0
+LIMIT 2
+2024-12-30 13:10:04.177 +01:00 [INF] Executed action MySpot.Api.Controllers.UsersController.Post (MySpot.Api) in 404.3229ms
+2024-12-30 13:10:04.179 +01:00 [INF] Executed endpoint 'MySpot.Api.Controllers.UsersController.Post (MySpot.Api)'
+2024-12-30 13:10:04.239 +01:00 [ERR] Email: 'test@gmail.com' is already in use.
+MySpot.Application.Exceptions.EmailAlreadyInUseException: Email: 'test@gmail.com' is already in use.
+   at MySpot.Application.Commands.Handlers.SignUpCommandHandler.HandleAsync(SignUpCommand command) in /Users/fenix/Documents/webdev/courses/mySpot/MySpot/src/MySpot.Application/Commands/Handlers/SignUpCommandHandler.cs:line 27
+   at MySpot.Infrastructure.DAL.PostgresUnitOfWork.ExecuteAsync(Func`1 action) in /Users/fenix/Documents/webdev/courses/mySpot/MySpot/src/MySpot.Infrastructure/DAL/PostgressUnitOfWork.cs:line 13
+   at MySpot.Infrastructure.DAL.PostgresUnitOfWork.ExecuteAsync(Func`1 action) in /Users/fenix/Documents/webdev/courses/mySpot/MySpot/src/MySpot.Infrastructure/DAL/PostgressUnitOfWork.cs:line 20
+   at MySpot.Infrastructure.DAL.PostgresUnitOfWork.ExecuteAsync(Func`1 action) in /Users/fenix/Documents/webdev/courses/mySpot/MySpot/src/MySpot.Infrastructure/DAL/PostgressUnitOfWork.cs:line 21
+   at MySpot.Infrastructure.DAL.Decorators.UnitOfWorkCommandHandlerDecorator`1.HandleAsync(TCommand command) in /Users/fenix/Documents/webdev/courses/mySpot/MySpot/src/MySpot.Infrastructure/DAL/Decorators/UnitOfWorkCommandHandlerDecorator.cs:line 13
+   at MySpot.Infrastructure.Logging.LoggingCommandHandlerDecorator`1.HandleAsync(TCommand command) in /Users/fenix/Documents/webdev/courses/mySpot/MySpot/src/MySpot.Infrastructure/Logging/LoggingCommandHandlerDecorator.cs:line 18
+   at MySpot.Api.Controllers.UsersController.Post(SignUpCommand command) in /Users/fenix/Documents/webdev/courses/mySpot/MySpot/src/MySpot.Api/Controllers/UsersController.cs:line 68
+   at lambda_method68(Closure, Object)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Logged|12_1(ControllerActionInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|7_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.ReDoc.ReDocMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at MySpot.Infrastructure.Exceptions.ExceptionMiddleware.InvokeAsync(HttpContext context, RequestDelegate next) in /Users/fenix/Documents/webdev/courses/mySpot/MySpot/src/MySpot.Infrastructure/Exceptions/ExceptionMiddleware.cs:line 16
+2024-12-30 13:22:04.436 +01:00 [INF] Request finished HTTP/1.1 POST http://localhost/users - 400 null application/json; charset=utf-8 720735.7487ms
+2024-12-30 14:01:41.500 +01:00 [INF] User profile is available. Using '/Users/fenix/.aspnet/DataProtection-Keys' as key repository; keys will not be encrypted at rest.
+2024-12-30 14:01:41.972 +01:00 [INF] Executed DbCommand (25ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1 FROM pg_catalog.pg_class c
+    JOIN pg_catalog.pg_namespace n ON n.oid=c.relnamespace
+    WHERE n.nspname='public' AND
+          c.relname='__EFMigrationsHistory'
+)
+2024-12-30 14:01:41.980 +01:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "MigrationId", "ProductVersion"
+FROM "__EFMigrationsHistory"
+ORDER BY "MigrationId";
+2024-12-30 14:01:41.989 +01:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1 FROM pg_catalog.pg_class c
+    JOIN pg_catalog.pg_namespace n ON n.oid=c.relnamespace
+    WHERE n.nspname='public' AND
+          c.relname='__EFMigrationsHistory'
+)
+2024-12-30 14:01:41.995 +01:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1 FROM pg_catalog.pg_class c
+    JOIN pg_catalog.pg_namespace n ON n.oid=c.relnamespace
+    WHERE n.nspname='public' AND
+          c.relname='__EFMigrationsHistory'
+)
+2024-12-30 14:01:41.995 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "MigrationId", "ProductVersion"
+FROM "__EFMigrationsHistory"
+ORDER BY "MigrationId";
+2024-12-30 14:01:42.000 +01:00 [INF] No migrations were applied. The database is already up to date.
+2024-12-30 14:01:42.067 +01:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT w."Id", w."Capacity", w."Name", w."Week"
+FROM "WeeklyParkingSpots" AS w
+2024-12-30 14:01:42.125 +01:00 [INF] Request starting HTTP/1.1 POST http://localhost/users - application/json; charset=utf-8 149
+2024-12-30 14:01:42.152 +01:00 [INF] Executing endpoint 'MySpot.Api.Controllers.UsersController.Post (MySpot.Api)'
+2024-12-30 14:01:42.158 +01:00 [INF] Route matched with {action = "Post", controller = "Users"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult] Post(MySpot.Application.Commands.SignUpCommand) on controller MySpot.Api.Controllers.UsersController (MySpot.Api).
+2024-12-30 14:01:42.181 +01:00 [INF] Starting handling a command sign_up_command...
+2024-12-30 14:01:42.246 +01:00 [INF] Executed DbCommand (6ms) [Parameters=[@__email_0='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT u."Id", u."CreatedAt", u."Email", u."FullName", u."Password", u."Role", u."Username"
+FROM "Users" AS u
+WHERE u."Email" = @__email_0
+LIMIT 2
+2024-12-30 14:01:42.261 +01:00 [INF] Executed action MySpot.Api.Controllers.UsersController.Post (MySpot.Api) in 101.6879ms
+2024-12-30 14:01:42.262 +01:00 [INF] Executed endpoint 'MySpot.Api.Controllers.UsersController.Post (MySpot.Api)'
+2024-12-30 14:01:42.262 +01:00 [ERR] Email: 'test@gmail.com' is already in use.
+MySpot.Application.Exceptions.EmailAlreadyInUseException: Email: 'test@gmail.com' is already in use.
+   at MySpot.Application.Commands.Handlers.SignUpCommandHandler.HandleAsync(SignUpCommand command) in /Users/fenix/Documents/webdev/courses/mySpot/MySpot/src/MySpot.Application/Commands/Handlers/SignUpCommandHandler.cs:line 27
+   at MySpot.Infrastructure.DAL.PostgresUnitOfWork.ExecuteAsync(Func`1 action) in /Users/fenix/Documents/webdev/courses/mySpot/MySpot/src/MySpot.Infrastructure/DAL/PostgressUnitOfWork.cs:line 13
+   at MySpot.Infrastructure.DAL.PostgresUnitOfWork.ExecuteAsync(Func`1 action) in /Users/fenix/Documents/webdev/courses/mySpot/MySpot/src/MySpot.Infrastructure/DAL/PostgressUnitOfWork.cs:line 20
+   at MySpot.Infrastructure.DAL.PostgresUnitOfWork.ExecuteAsync(Func`1 action) in /Users/fenix/Documents/webdev/courses/mySpot/MySpot/src/MySpot.Infrastructure/DAL/PostgressUnitOfWork.cs:line 21
+   at MySpot.Infrastructure.DAL.Decorators.UnitOfWorkCommandHandlerDecorator`1.HandleAsync(TCommand command) in /Users/fenix/Documents/webdev/courses/mySpot/MySpot/src/MySpot.Infrastructure/DAL/Decorators/UnitOfWorkCommandHandlerDecorator.cs:line 13
+   at MySpot.Infrastructure.Logging.LoggingCommandHandlerDecorator`1.HandleAsync(TCommand command) in /Users/fenix/Documents/webdev/courses/mySpot/MySpot/src/MySpot.Infrastructure/Logging/LoggingCommandHandlerDecorator.cs:line 18
+   at MySpot.Api.Controllers.UsersController.Post(SignUpCommand command) in /Users/fenix/Documents/webdev/courses/mySpot/MySpot/src/MySpot.Api/Controllers/UsersController.cs:line 68
+   at lambda_method70(Closure, Object)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|7_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.ReDoc.ReDocMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at MySpot.Infrastructure.Exceptions.ExceptionMiddleware.InvokeAsync(HttpContext context, RequestDelegate next) in /Users/fenix/Documents/webdev/courses/mySpot/MySpot/src/MySpot.Infrastructure/Exceptions/ExceptionMiddleware.cs:line 16
+2024-12-30 14:01:42.275 +01:00 [INF] Request finished HTTP/1.1 POST http://localhost/users - 400 null application/json; charset=utf-8 151.1678ms
+2024-12-30 16:34:51.579 +01:00 [INF] User profile is available. Using '/Users/fenix/.aspnet/DataProtection-Keys' as key repository; keys will not be encrypted at rest.
+2024-12-30 16:34:52.054 +01:00 [INF] Executed DbCommand (24ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1 FROM pg_catalog.pg_class c
+    JOIN pg_catalog.pg_namespace n ON n.oid=c.relnamespace
+    WHERE n.nspname='public' AND
+          c.relname='__EFMigrationsHistory'
+)
+2024-12-30 16:34:52.062 +01:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "MigrationId", "ProductVersion"
+FROM "__EFMigrationsHistory"
+ORDER BY "MigrationId";
+2024-12-30 16:34:52.072 +01:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1 FROM pg_catalog.pg_class c
+    JOIN pg_catalog.pg_namespace n ON n.oid=c.relnamespace
+    WHERE n.nspname='public' AND
+          c.relname='__EFMigrationsHistory'
+)
+2024-12-30 16:34:52.077 +01:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1 FROM pg_catalog.pg_class c
+    JOIN pg_catalog.pg_namespace n ON n.oid=c.relnamespace
+    WHERE n.nspname='public' AND
+          c.relname='__EFMigrationsHistory'
+)
+2024-12-30 16:34:52.078 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "MigrationId", "ProductVersion"
+FROM "__EFMigrationsHistory"
+ORDER BY "MigrationId";
+2024-12-30 16:34:52.082 +01:00 [INF] No migrations were applied. The database is already up to date.
+2024-12-30 16:34:52.147 +01:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT w."Id", w."Capacity", w."Name", w."Week"
+FROM "WeeklyParkingSpots" AS w
+2024-12-30 16:34:52.209 +01:00 [INF] Request starting HTTP/1.1 POST http://localhost/users - application/json; charset=utf-8 149
+2024-12-30 16:34:52.235 +01:00 [INF] Executing endpoint 'MySpot.Api.Controllers.UsersController.Post (MySpot.Api)'
+2024-12-30 16:34:52.242 +01:00 [INF] Route matched with {action = "Post", controller = "Users"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult] Post(MySpot.Application.Commands.SignUpCommand) on controller MySpot.Api.Controllers.UsersController (MySpot.Api).
+2024-12-30 16:34:52.264 +01:00 [INF] Starting handling a command sign_up_command...
+2024-12-30 16:34:52.328 +01:00 [INF] Executed DbCommand (6ms) [Parameters=[@__email_0='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT u."Id", u."CreatedAt", u."Email", u."FullName", u."Password", u."Role", u."Username"
+FROM "Users" AS u
+WHERE u."Email" = @__email_0
+LIMIT 2
+2024-12-30 16:34:52.345 +01:00 [INF] Executed action MySpot.Api.Controllers.UsersController.Post (MySpot.Api) in 101.7422ms
+2024-12-30 16:34:52.346 +01:00 [INF] Executed endpoint 'MySpot.Api.Controllers.UsersController.Post (MySpot.Api)'
+2024-12-30 16:34:52.346 +01:00 [ERR] Email: 'test@gmail.com' is already in use.
+MySpot.Application.Exceptions.EmailAlreadyInUseException: Email: 'test@gmail.com' is already in use.
+   at MySpot.Application.Commands.Handlers.SignUpCommandHandler.HandleAsync(SignUpCommand command) in /Users/fenix/Documents/webdev/courses/mySpot/MySpot/src/MySpot.Application/Commands/Handlers/SignUpCommandHandler.cs:line 27
+   at MySpot.Infrastructure.DAL.PostgresUnitOfWork.ExecuteAsync(Func`1 action) in /Users/fenix/Documents/webdev/courses/mySpot/MySpot/src/MySpot.Infrastructure/DAL/PostgressUnitOfWork.cs:line 13
+   at MySpot.Infrastructure.DAL.PostgresUnitOfWork.ExecuteAsync(Func`1 action) in /Users/fenix/Documents/webdev/courses/mySpot/MySpot/src/MySpot.Infrastructure/DAL/PostgressUnitOfWork.cs:line 20
+   at MySpot.Infrastructure.DAL.PostgresUnitOfWork.ExecuteAsync(Func`1 action) in /Users/fenix/Documents/webdev/courses/mySpot/MySpot/src/MySpot.Infrastructure/DAL/PostgressUnitOfWork.cs:line 21
+   at MySpot.Infrastructure.DAL.Decorators.UnitOfWorkCommandHandlerDecorator`1.HandleAsync(TCommand command) in /Users/fenix/Documents/webdev/courses/mySpot/MySpot/src/MySpot.Infrastructure/DAL/Decorators/UnitOfWorkCommandHandlerDecorator.cs:line 13
+   at MySpot.Infrastructure.Logging.LoggingCommandHandlerDecorator`1.HandleAsync(TCommand command) in /Users/fenix/Documents/webdev/courses/mySpot/MySpot/src/MySpot.Infrastructure/Logging/LoggingCommandHandlerDecorator.cs:line 18
+   at MySpot.Api.Controllers.UsersController.Post(SignUpCommand command) in /Users/fenix/Documents/webdev/courses/mySpot/MySpot/src/MySpot.Api/Controllers/UsersController.cs:line 68
+   at lambda_method73(Closure, Object)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|7_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.ReDoc.ReDocMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at MySpot.Infrastructure.Exceptions.ExceptionMiddleware.InvokeAsync(HttpContext context, RequestDelegate next) in /Users/fenix/Documents/webdev/courses/mySpot/MySpot/src/MySpot.Infrastructure/Exceptions/ExceptionMiddleware.cs:line 16
+2024-12-30 16:34:52.360 +01:00 [INF] Request finished HTTP/1.1 POST http://localhost/users - 400 null application/json; charset=utf-8 151.7472ms
+2024-12-30 16:35:52.005 +01:00 [INF] User profile is available. Using '/Users/fenix/.aspnet/DataProtection-Keys' as key repository; keys will not be encrypted at rest.
+2024-12-30 16:35:52.482 +01:00 [INF] Executed DbCommand (45ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE DATABASE "MySpot-test";
+2024-12-30 16:35:52.530 +01:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE "__EFMigrationsHistory" (
+    "MigrationId" character varying(150) NOT NULL,
+    "ProductVersion" character varying(32) NOT NULL,
+    CONSTRAINT "PK___EFMigrationsHistory" PRIMARY KEY ("MigrationId")
+);
+2024-12-30 16:35:52.547 +01:00 [INF] Executed DbCommand (14ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1 FROM pg_catalog.pg_class c
+    JOIN pg_catalog.pg_namespace n ON n.oid=c.relnamespace
+    WHERE n.nspname='public' AND
+          c.relname='__EFMigrationsHistory'
+)
+2024-12-30 16:35:52.549 +01:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "MigrationId", "ProductVersion"
+FROM "__EFMigrationsHistory"
+ORDER BY "MigrationId";
+2024-12-30 16:35:52.554 +01:00 [INF] Applying migration '20241102174252_Init'.
+2024-12-30 16:35:52.567 +01:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE "WeeklyParkingSpots" (
+    "Id" uuid NOT NULL,
+    "Week" timestamp with time zone NOT NULL,
+    "Name" text NOT NULL,
+    CONSTRAINT "PK_WeeklyParkingSpots" PRIMARY KEY ("Id")
+);
+2024-12-30 16:35:52.569 +01:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE "Reservations" (
+    "Id" uuid NOT NULL,
+    "ParkingSpotId" uuid NOT NULL,
+    "EmployeeName" text NOT NULL,
+    "LicensePlate" text NOT NULL,
+    "Date" timestamp with time zone NOT NULL,
+    "WeeklyParkingSpotId" uuid,
+    CONSTRAINT "PK_Reservations" PRIMARY KEY ("Id"),
+    CONSTRAINT "FK_Reservations_WeeklyParkingSpots_WeeklyParkingSpotId" FOREIGN KEY ("WeeklyParkingSpotId") REFERENCES "WeeklyParkingSpots" ("Id")
+);
+2024-12-30 16:35:52.570 +01:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX "IX_Reservations_WeeklyParkingSpotId" ON "Reservations" ("WeeklyParkingSpotId");
+2024-12-30 16:35:52.571 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
+VALUES ('20241102174252_Init', '8.0.10');
+2024-12-30 16:35:52.573 +01:00 [INF] Applying migration '20241201130921_CleaningReservation'.
+2024-12-30 16:35:52.578 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+ALTER TABLE "Reservations" ALTER COLUMN "LicensePlate" DROP NOT NULL;
+2024-12-30 16:35:52.578 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+ALTER TABLE "Reservations" ALTER COLUMN "EmployeeName" DROP NOT NULL;
+2024-12-30 16:35:52.579 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+ALTER TABLE "Reservations" ADD "Type" character varying(21) NOT NULL DEFAULT '';
+2024-12-30 16:35:52.579 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
+VALUES ('20241201130921_CleaningReservation', '8.0.10');
+2024-12-30 16:35:52.580 +01:00 [INF] Applying migration '20241224115702_Introducing_Capacity'.
+2024-12-30 16:35:52.582 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+ALTER TABLE "WeeklyParkingSpots" ADD "Capacity" integer NOT NULL DEFAULT 0;
+2024-12-30 16:35:52.582 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+ALTER TABLE "Reservations" ADD "Capacity" integer NOT NULL DEFAULT 0;
+2024-12-30 16:35:52.583 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
+VALUES ('20241224115702_Introducing_Capacity', '8.0.10');
+2024-12-30 16:35:52.583 +01:00 [INF] Applying migration '20241228131830_AddUser'.
+2024-12-30 16:35:52.587 +01:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE "Users" (
+    "Id" uuid NOT NULL,
+    "Email" character varying(100) NOT NULL,
+    "Username" character varying(30) NOT NULL,
+    "Password" character varying(200) NOT NULL,
+    "FullName" character varying(100) NOT NULL,
+    "Role" character varying(30) NOT NULL,
+    "CreatedAt" timestamp without time zone NOT NULL,
+    CONSTRAINT "PK_Users" PRIMARY KEY ("Id")
+);
+2024-12-30 16:35:52.588 +01:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX "IX_Users_Email" ON "Users" ("Email");
+2024-12-30 16:35:52.589 +01:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX "IX_Users_Username" ON "Users" ("Username");
+2024-12-30 16:35:52.589 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
+VALUES ('20241228131830_AddUser', '8.0.10');
+2024-12-30 16:35:52.650 +01:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT w."Id", w."Capacity", w."Name", w."Week"
+FROM "WeeklyParkingSpots" AS w
+2024-12-30 16:35:52.707 +01:00 [INF] Executed DbCommand (6ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (DbType = Int32), @p2='?', @p3='?' (DbType = DateTimeOffset), @p4='?' (DbType = Guid), @p5='?' (DbType = Int32), @p6='?', @p7='?' (DbType = DateTimeOffset), @p8='?' (DbType = Guid), @p9='?' (DbType = Int32), @p10='?', @p11='?' (DbType = DateTimeOffset), @p12='?' (DbType = Guid), @p13='?' (DbType = Int32), @p14='?', @p15='?' (DbType = DateTimeOffset), @p16='?' (DbType = Guid), @p17='?' (DbType = Int32), @p18='?', @p19='?' (DbType = DateTimeOffset)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "WeeklyParkingSpots" ("Id", "Capacity", "Name", "Week")
+VALUES (@p0, @p1, @p2, @p3);
+INSERT INTO "WeeklyParkingSpots" ("Id", "Capacity", "Name", "Week")
+VALUES (@p4, @p5, @p6, @p7);
+INSERT INTO "WeeklyParkingSpots" ("Id", "Capacity", "Name", "Week")
+VALUES (@p8, @p9, @p10, @p11);
+INSERT INTO "WeeklyParkingSpots" ("Id", "Capacity", "Name", "Week")
+VALUES (@p12, @p13, @p14, @p15);
+INSERT INTO "WeeklyParkingSpots" ("Id", "Capacity", "Name", "Week")
+VALUES (@p16, @p17, @p18, @p19);
+2024-12-30 16:35:52.751 +01:00 [INF] Request starting HTTP/1.1 POST http://localhost/users - application/json; charset=utf-8 149
+2024-12-30 16:35:52.778 +01:00 [INF] Executing endpoint 'MySpot.Api.Controllers.UsersController.Post (MySpot.Api)'
+2024-12-30 16:35:52.784 +01:00 [INF] Route matched with {action = "Post", controller = "Users"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult] Post(MySpot.Application.Commands.SignUpCommand) on controller MySpot.Api.Controllers.UsersController (MySpot.Api).
+2024-12-30 16:35:52.805 +01:00 [INF] Starting handling a command sign_up_command...
+2024-12-30 16:35:52.861 +01:00 [INF] Executed DbCommand (3ms) [Parameters=[@__email_0='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT u."Id", u."CreatedAt", u."Email", u."FullName", u."Password", u."Role", u."Username"
+FROM "Users" AS u
+WHERE u."Email" = @__email_0
+LIMIT 2
+2024-12-30 16:35:52.866 +01:00 [INF] Executed DbCommand (1ms) [Parameters=[@__username_0='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT u."Id", u."CreatedAt", u."Email", u."FullName", u."Password", u."Role", u."Username"
+FROM "Users" AS u
+WHERE u."Username" = @__username_0
+LIMIT 2
+2024-12-30 16:35:52.927 +01:00 [INF] Executed DbCommand (2ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (DbType = DateTime), @p2='?', @p3='?', @p4='?', @p5='?', @p6='?'], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Users" ("Id", "CreatedAt", "Email", "FullName", "Password", "Role", "Username")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6);
+2024-12-30 16:35:52.933 +01:00 [INF] Completed handling a command sign_up_command in "00:00:00.1289650"
+2024-12-30 16:35:52.936 +01:00 [INF] Executing CreatedAtActionResult, writing value of type 'null'.
+2024-12-30 16:35:52.942 +01:00 [INF] Executed action MySpot.Api.Controllers.UsersController.Post (MySpot.Api) in 156.6082ms
+2024-12-30 16:35:52.942 +01:00 [INF] Executed endpoint 'MySpot.Api.Controllers.UsersController.Post (MySpot.Api)'
+2024-12-30 16:35:52.946 +01:00 [INF] Request finished HTTP/1.1 POST http://localhost/users - 201 null null 195.6004ms
+2024-12-30 17:11:44.020 +01:00 [INF] User profile is available. Using '/Users/fenix/.aspnet/DataProtection-Keys' as key repository; keys will not be encrypted at rest.
+2024-12-30 17:11:44.546 +01:00 [INF] Executed DbCommand (53ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE DATABASE "MySpot-test";
+2024-12-30 17:11:44.595 +01:00 [INF] Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE "__EFMigrationsHistory" (
+    "MigrationId" character varying(150) NOT NULL,
+    "ProductVersion" character varying(32) NOT NULL,
+    CONSTRAINT "PK___EFMigrationsHistory" PRIMARY KEY ("MigrationId")
+);
+2024-12-30 17:11:44.612 +01:00 [INF] Executed DbCommand (14ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1 FROM pg_catalog.pg_class c
+    JOIN pg_catalog.pg_namespace n ON n.oid=c.relnamespace
+    WHERE n.nspname='public' AND
+          c.relname='__EFMigrationsHistory'
+)
+2024-12-30 17:11:44.614 +01:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "MigrationId", "ProductVersion"
+FROM "__EFMigrationsHistory"
+ORDER BY "MigrationId";
+2024-12-30 17:11:44.618 +01:00 [INF] Applying migration '20241102174252_Init'.
+2024-12-30 17:11:44.631 +01:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE "WeeklyParkingSpots" (
+    "Id" uuid NOT NULL,
+    "Week" timestamp with time zone NOT NULL,
+    "Name" text NOT NULL,
+    CONSTRAINT "PK_WeeklyParkingSpots" PRIMARY KEY ("Id")
+);
+2024-12-30 17:11:44.633 +01:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE "Reservations" (
+    "Id" uuid NOT NULL,
+    "ParkingSpotId" uuid NOT NULL,
+    "EmployeeName" text NOT NULL,
+    "LicensePlate" text NOT NULL,
+    "Date" timestamp with time zone NOT NULL,
+    "WeeklyParkingSpotId" uuid,
+    CONSTRAINT "PK_Reservations" PRIMARY KEY ("Id"),
+    CONSTRAINT "FK_Reservations_WeeklyParkingSpots_WeeklyParkingSpotId" FOREIGN KEY ("WeeklyParkingSpotId") REFERENCES "WeeklyParkingSpots" ("Id")
+);
+2024-12-30 17:11:44.634 +01:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX "IX_Reservations_WeeklyParkingSpotId" ON "Reservations" ("WeeklyParkingSpotId");
+2024-12-30 17:11:44.635 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
+VALUES ('20241102174252_Init', '8.0.10');
+2024-12-30 17:11:44.637 +01:00 [INF] Applying migration '20241201130921_CleaningReservation'.
+2024-12-30 17:11:44.642 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+ALTER TABLE "Reservations" ALTER COLUMN "LicensePlate" DROP NOT NULL;
+2024-12-30 17:11:44.643 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+ALTER TABLE "Reservations" ALTER COLUMN "EmployeeName" DROP NOT NULL;
+2024-12-30 17:11:44.643 +01:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+ALTER TABLE "Reservations" ADD "Type" character varying(21) NOT NULL DEFAULT '';
+2024-12-30 17:11:44.644 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
+VALUES ('20241201130921_CleaningReservation', '8.0.10');
+2024-12-30 17:11:44.644 +01:00 [INF] Applying migration '20241224115702_Introducing_Capacity'.
+2024-12-30 17:11:44.647 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+ALTER TABLE "WeeklyParkingSpots" ADD "Capacity" integer NOT NULL DEFAULT 0;
+2024-12-30 17:11:44.647 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+ALTER TABLE "Reservations" ADD "Capacity" integer NOT NULL DEFAULT 0;
+2024-12-30 17:11:44.648 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
+VALUES ('20241224115702_Introducing_Capacity', '8.0.10');
+2024-12-30 17:11:44.648 +01:00 [INF] Applying migration '20241228131830_AddUser'.
+2024-12-30 17:11:44.652 +01:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE "Users" (
+    "Id" uuid NOT NULL,
+    "Email" character varying(100) NOT NULL,
+    "Username" character varying(30) NOT NULL,
+    "Password" character varying(200) NOT NULL,
+    "FullName" character varying(100) NOT NULL,
+    "Role" character varying(30) NOT NULL,
+    "CreatedAt" timestamp without time zone NOT NULL,
+    CONSTRAINT "PK_Users" PRIMARY KEY ("Id")
+);
+2024-12-30 17:11:44.653 +01:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX "IX_Users_Email" ON "Users" ("Email");
+2024-12-30 17:11:44.654 +01:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX "IX_Users_Username" ON "Users" ("Username");
+2024-12-30 17:11:44.654 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
+VALUES ('20241228131830_AddUser', '8.0.10');
+2024-12-30 17:11:44.717 +01:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT w."Id", w."Capacity", w."Name", w."Week"
+FROM "WeeklyParkingSpots" AS w
+2024-12-30 17:11:44.775 +01:00 [INF] Executed DbCommand (7ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (DbType = Int32), @p2='?', @p3='?' (DbType = DateTimeOffset), @p4='?' (DbType = Guid), @p5='?' (DbType = Int32), @p6='?', @p7='?' (DbType = DateTimeOffset), @p8='?' (DbType = Guid), @p9='?' (DbType = Int32), @p10='?', @p11='?' (DbType = DateTimeOffset), @p12='?' (DbType = Guid), @p13='?' (DbType = Int32), @p14='?', @p15='?' (DbType = DateTimeOffset), @p16='?' (DbType = Guid), @p17='?' (DbType = Int32), @p18='?', @p19='?' (DbType = DateTimeOffset)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "WeeklyParkingSpots" ("Id", "Capacity", "Name", "Week")
+VALUES (@p0, @p1, @p2, @p3);
+INSERT INTO "WeeklyParkingSpots" ("Id", "Capacity", "Name", "Week")
+VALUES (@p4, @p5, @p6, @p7);
+INSERT INTO "WeeklyParkingSpots" ("Id", "Capacity", "Name", "Week")
+VALUES (@p8, @p9, @p10, @p11);
+INSERT INTO "WeeklyParkingSpots" ("Id", "Capacity", "Name", "Week")
+VALUES (@p12, @p13, @p14, @p15);
+INSERT INTO "WeeklyParkingSpots" ("Id", "Capacity", "Name", "Week")
+VALUES (@p16, @p17, @p18, @p19);
+2024-12-30 17:11:44.913 +01:00 [INF] Request starting HTTP/1.1 POST http://localhost/users/sign-in - application/json; charset=utf-8 46
+2024-12-30 17:11:44.940 +01:00 [INF] Executing endpoint 'MySpot.Api.Controllers.UsersController.Post (MySpot.Api)'
+2024-12-30 17:11:44.946 +01:00 [INF] Route matched with {action = "Post", controller = "Users"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[MySpot.Application.DTO.JwtDto]] Post(MySpot.Application.Commands.SignInCommand) on controller MySpot.Api.Controllers.UsersController (MySpot.Api).
+2024-12-30 17:11:44.965 +01:00 [INF] Starting handling a command sign_in_command...
+2024-12-30 17:11:45.013 +01:00 [INF] Executed DbCommand (1ms) [Parameters=[@__email_0='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT u."Id", u."CreatedAt", u."Email", u."FullName", u."Password", u."Role", u."Username"
+FROM "Users" AS u
+WHERE u."Email" = @__email_0
+LIMIT 2
+2024-12-30 17:11:45.072 +01:00 [INF] Completed handling a command sign_in_command in "00:00:00.1074789"
+2024-12-30 17:11:45.074 +01:00 [INF] Executing OkObjectResult, writing value of type 'MySpot.Application.DTO.JwtDto'.
+2024-12-30 17:11:45.078 +01:00 [INF] Executed action MySpot.Api.Controllers.UsersController.Post (MySpot.Api) in 130.9532ms
+2024-12-30 17:11:45.079 +01:00 [INF] Executed endpoint 'MySpot.Api.Controllers.UsersController.Post (MySpot.Api)'
+2024-12-30 17:11:45.082 +01:00 [INF] Request finished HTTP/1.1 POST http://localhost/users/sign-in - 200 null application/json; charset=utf-8 169.8208ms
+2024-12-30 17:43:40.916 +01:00 [INF] User profile is available. Using '/Users/fenix/.aspnet/DataProtection-Keys' as key repository; keys will not be encrypted at rest.
+2024-12-30 17:43:41.427 +01:00 [INF] Executed DbCommand (56ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE DATABASE "MySpot-test";
+2024-12-30 17:43:41.475 +01:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE "__EFMigrationsHistory" (
+    "MigrationId" character varying(150) NOT NULL,
+    "ProductVersion" character varying(32) NOT NULL,
+    CONSTRAINT "PK___EFMigrationsHistory" PRIMARY KEY ("MigrationId")
+);
+2024-12-30 17:43:41.494 +01:00 [INF] Executed DbCommand (15ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1 FROM pg_catalog.pg_class c
+    JOIN pg_catalog.pg_namespace n ON n.oid=c.relnamespace
+    WHERE n.nspname='public' AND
+          c.relname='__EFMigrationsHistory'
+)
+2024-12-30 17:43:41.495 +01:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT "MigrationId", "ProductVersion"
+FROM "__EFMigrationsHistory"
+ORDER BY "MigrationId";
+2024-12-30 17:43:41.500 +01:00 [INF] Applying migration '20241102174252_Init'.
+2024-12-30 17:43:41.513 +01:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE "WeeklyParkingSpots" (
+    "Id" uuid NOT NULL,
+    "Week" timestamp with time zone NOT NULL,
+    "Name" text NOT NULL,
+    CONSTRAINT "PK_WeeklyParkingSpots" PRIMARY KEY ("Id")
+);
+2024-12-30 17:43:41.516 +01:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE "Reservations" (
+    "Id" uuid NOT NULL,
+    "ParkingSpotId" uuid NOT NULL,
+    "EmployeeName" text NOT NULL,
+    "LicensePlate" text NOT NULL,
+    "Date" timestamp with time zone NOT NULL,
+    "WeeklyParkingSpotId" uuid,
+    CONSTRAINT "PK_Reservations" PRIMARY KEY ("Id"),
+    CONSTRAINT "FK_Reservations_WeeklyParkingSpots_WeeklyParkingSpotId" FOREIGN KEY ("WeeklyParkingSpotId") REFERENCES "WeeklyParkingSpots" ("Id")
+);
+2024-12-30 17:43:41.517 +01:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE INDEX "IX_Reservations_WeeklyParkingSpotId" ON "Reservations" ("WeeklyParkingSpotId");
+2024-12-30 17:43:41.517 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
+VALUES ('20241102174252_Init', '8.0.10');
+2024-12-30 17:43:41.519 +01:00 [INF] Applying migration '20241201130921_CleaningReservation'.
+2024-12-30 17:43:41.524 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+ALTER TABLE "Reservations" ALTER COLUMN "LicensePlate" DROP NOT NULL;
+2024-12-30 17:43:41.525 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+ALTER TABLE "Reservations" ALTER COLUMN "EmployeeName" DROP NOT NULL;
+2024-12-30 17:43:41.525 +01:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+ALTER TABLE "Reservations" ADD "Type" character varying(21) NOT NULL DEFAULT '';
+2024-12-30 17:43:41.526 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
+VALUES ('20241201130921_CleaningReservation', '8.0.10');
+2024-12-30 17:43:41.526 +01:00 [INF] Applying migration '20241224115702_Introducing_Capacity'.
+2024-12-30 17:43:41.528 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+ALTER TABLE "WeeklyParkingSpots" ADD "Capacity" integer NOT NULL DEFAULT 0;
+2024-12-30 17:43:41.529 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+ALTER TABLE "Reservations" ADD "Capacity" integer NOT NULL DEFAULT 0;
+2024-12-30 17:43:41.529 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
+VALUES ('20241224115702_Introducing_Capacity', '8.0.10');
+2024-12-30 17:43:41.529 +01:00 [INF] Applying migration '20241228131830_AddUser'.
+2024-12-30 17:43:41.533 +01:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE "Users" (
+    "Id" uuid NOT NULL,
+    "Email" character varying(100) NOT NULL,
+    "Username" character varying(30) NOT NULL,
+    "Password" character varying(200) NOT NULL,
+    "FullName" character varying(100) NOT NULL,
+    "Role" character varying(30) NOT NULL,
+    "CreatedAt" timestamp without time zone NOT NULL,
+    CONSTRAINT "PK_Users" PRIMARY KEY ("Id")
+);
+2024-12-30 17:43:41.535 +01:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX "IX_Users_Email" ON "Users" ("Email");
+2024-12-30 17:43:41.536 +01:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE UNIQUE INDEX "IX_Users_Username" ON "Users" ("Username");
+2024-12-30 17:43:41.536 +01:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
+VALUES ('20241228131830_AddUser', '8.0.10');
+2024-12-30 17:43:41.598 +01:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT w."Id", w."Capacity", w."Name", w."Week"
+FROM "WeeklyParkingSpots" AS w
+2024-12-30 17:43:41.656 +01:00 [INF] Executed DbCommand (7ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (DbType = Int32), @p2='?', @p3='?' (DbType = DateTimeOffset), @p4='?' (DbType = Guid), @p5='?' (DbType = Int32), @p6='?', @p7='?' (DbType = DateTimeOffset), @p8='?' (DbType = Guid), @p9='?' (DbType = Int32), @p10='?', @p11='?' (DbType = DateTimeOffset), @p12='?' (DbType = Guid), @p13='?' (DbType = Int32), @p14='?', @p15='?' (DbType = DateTimeOffset), @p16='?' (DbType = Guid), @p17='?' (DbType = Int32), @p18='?', @p19='?' (DbType = DateTimeOffset)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "WeeklyParkingSpots" ("Id", "Capacity", "Name", "Week")
+VALUES (@p0, @p1, @p2, @p3);
+INSERT INTO "WeeklyParkingSpots" ("Id", "Capacity", "Name", "Week")
+VALUES (@p4, @p5, @p6, @p7);
+INSERT INTO "WeeklyParkingSpots" ("Id", "Capacity", "Name", "Week")
+VALUES (@p8, @p9, @p10, @p11);
+INSERT INTO "WeeklyParkingSpots" ("Id", "Capacity", "Name", "Week")
+VALUES (@p12, @p13, @p14, @p15);
+INSERT INTO "WeeklyParkingSpots" ("Id", "Capacity", "Name", "Week")
+VALUES (@p16, @p17, @p18, @p19);
+2024-12-30 17:43:41.790 +01:00 [INF] Request starting HTTP/1.1 GET http://localhost/users/me - null null
+2024-12-30 17:43:41.826 +01:00 [INF] Executing endpoint 'MySpot.Api.Controllers.UsersController.Get (MySpot.Api)'
+2024-12-30 17:43:41.831 +01:00 [INF] Route matched with {action = "Get", controller = "Users"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[MySpot.Application.DTO.UserDto]] Get() on controller MySpot.Api.Controllers.UsersController (MySpot.Api).
+2024-12-30 17:43:41.880 +01:00 [INF] Executed DbCommand (2ms) [Parameters=[@__userId_0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+SELECT u."Id", u."CreatedAt", u."Email", u."FullName", u."Password", u."Role", u."Username"
+FROM "Users" AS u
+WHERE u."Id" = @__userId_0
+LIMIT 2
+2024-12-30 17:43:41.886 +01:00 [INF] Executing ObjectResult, writing value of type 'MySpot.Application.DTO.UserDto'.
+2024-12-30 17:43:41.903 +01:00 [INF] Executed action MySpot.Api.Controllers.UsersController.Get (MySpot.Api) in 70.9941ms
+2024-12-30 17:43:41.904 +01:00 [INF] Executed endpoint 'MySpot.Api.Controllers.UsersController.Get (MySpot.Api)'
+2024-12-30 17:43:41.907 +01:00 [INF] Request finished HTTP/1.1 GET http://localhost/users/me - 200 null application/json; charset=utf-8 117.281ms

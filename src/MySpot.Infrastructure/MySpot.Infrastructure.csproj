@@ -42,6 +42,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <InternalsVisibleTo Include="MySpot.Tests.Unit"></InternalsVisibleTo>
+        <InternalsVisibleTo Include="MySpot.Tests.Unit" />
+        <InternalsVisibleTo Include="MySpot.Tests.Integration" />
     </ItemGroup>
 </Project>
